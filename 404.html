@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · Page Not Found · IgniteTravel</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('travel-theme') || (localStorage.getItem('travel-dark') === 'true' ? 'dark' : (localStorage.getItem('travel-dark') === 'false' ? 'light' : null));
+            if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.classList.remove('dark');
+            }
+            var rtl = localStorage.getItem('travel-rtl');
+            if (rtl === 'rtl') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+        })();
+    </script>
+
+    <style>
+        /* ═══════════ COLOR PALETTE (IgniteTravel red) ═══════════ */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #1a1a2e;
+            --color-secondary-text: #6b7280;
+            --color-accent: #dc2626;
+            --color-accent-dark: #991b1b;
+            --color-accent-light: #fef2f2;
+            --color-border: #e5e7eb;
+            --color-hover: #f9fafb;
+        }
+        html[data-theme='dark'] {
+            --color-background: #0a0a0a;
+            --color-primary-text: #ffffff;
+            --color-secondary-text: #a1a1aa;
+            --color-accent: #ef4444;
+            --color-accent-dark: #dc2626;
+            --color-accent-light: #1a1a1a;
+            --color-border: #27272a;
+            --color-hover: #111111;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { overflow-x: hidden; scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .border-border { border-color: var(--color-border); }
+
+        /* ═══════════ ERROR CARD ═══════════ */
+        .error-card {
+            background: var(--color-background);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 32px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 60px rgba(220, 38, 38, 0.10);
+            border: 1px solid var(--color-border);
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        html[data-theme='dark'] .error-card {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ═══════════ 404 NUMBER ═══════════ */
+        .error-number {
+            font-size: clamp(72px, 16vh, 130px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 50%, #f87171 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            letter-spacing: -4px;
+        }
+        html[data-theme='dark'] .error-number {
+            background: linear-gradient(135deg, #f87171 0%, #dc2626 50%, #fca5a5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* ═══════════ BUTTONS ═══════════ */
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            opacity: 0.92;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 24px rgba(220, 38, 38, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.25);
+        }
+
+        /* ═══════════ QUICK LINKS ═══════════ */
+        .quick-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .quick-link:hover {
+            color: var(--color-primary-text);
+            text-decoration: underline;
+        }
+
+        /* ═══════════ THEME / RTL TOGGLES ═══════════ */
+        .toggle-btn {
+            position: fixed;
+            top: 1.5rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            color: var(--color-secondary-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .toggle-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        #theme-toggle { right: 1.5rem; }
+        #rtl-toggle   { right: 4.25rem; }
+
+        /* ═══════════ ANIMATIONS ═══════════ */
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.2)); }
+            50% { filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.5)) drop-shadow(0 0 80px rgba(220, 38, 38, 0.2)); }
+        }
+        .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+
+        @keyframes ringFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+        .ring-float { animation: ringFloat 8s ease-in-out infinite; }
+
+        @keyframes ringFloat2 {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+        .ring-float-2 { animation: ringFloat2 10s ease-in-out infinite; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .star-twinkle { animation: twinkle 2.4s ease-in-out infinite; }
+        .star-twinkle:nth-child(2) { animation-delay: 0.7s; }
+        .star-twinkle:nth-child(3) { animation-delay: 1.4s; }
+        .star-twinkle:nth-child(4) { animation-delay: 0.3s; }
+        .star-twinkle:nth-child(5) { animation-delay: 1.8s; }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* ═══════════ FLOATING BACKGROUND DECORATIONS ═══════════ */
+        .floating-ring-1 {
+            position: fixed;
+            top: 8%; left: 5%;
+            font-size: 60px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            color: var(--color-accent);
+        }
+        .floating-ring-2 {
+            position: fixed;
+            bottom: 10%; right: 5%;
+            font-size: 80px;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+            color: var(--color-accent);
+        }
+        .floating-ring-3 {
+            position: fixed;
+            top: 50%; right: 8%;
+            font-size: 40px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+            color: var(--color-accent);
+        }
+        html[data-theme='dark'] .floating-ring-1,
+        html[data-theme='dark'] .floating-ring-2,
+        html[data-theme='dark'] .floating-ring-3 {
+            opacity: 0.15;
+        }
+
+        /* ═══════════ SCROLLBAR HIDDEN ═══════════ */
+        ::-webkit-scrollbar { display: none; }
+        html { scrollbar-width: none; -ms-overflow-style: none; }
+
+        /* ═══════════ RESPONSIVE ═══════════ */
+        @media (max-width: 640px) {
+            .toggle-btn { width: 38px; height: 38px; }
+            #theme-toggle { right: 1rem; }
+            #rtl-toggle   { right: 3.5rem; }
+            .toggle-btn { top: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .error-card {
+                padding: 1.75rem 1.25rem;
+                border-radius: 24px;
+                margin: 0 12px;
+            }
+            .error-number { font-size: 72px; letter-spacing: -2px; }
+            .floating-ring-1 { font-size: 40px; }
+            .floating-ring-2 { font-size: 50px; }
+            .floating-ring-3 { font-size: 30px; }
+        }
+        @media (max-width: 360px) {
+            .error-card { padding: 1.25rem 1rem; border-radius: 20px; }
+            .error-number { font-size: 56px; }
+        }
+        @media (max-height: 700px) {
+            .error-card { padding: 1.5rem 1.5rem; }
+            .error-number { font-size: 72px; }
+        }
+        @media (max-height: 600px) {
+            .error-card { padding: 1rem 1.25rem; }
+            .error-number { font-size: 56px; }
+        }
+
+        /* RTL adjustments */
+        html[dir="rtl"] .btn-primary i,
+        html[dir="rtl"] .btn-outline i {
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ TOP-RIGHT TOGGLES (Theme + RTL) ═══════════ -->
+    <button id="rtl-toggle" class="toggle-btn" title="Toggle RTL">
+        <i class="fa-solid fa-right-left"></i>
+    </button>
+    <button id="theme-toggle" class="toggle-btn" title="Toggle Theme">
+        <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+
+    <!-- ═══════════ FLOATING BACKGROUND DECORATIONS ═══════════ -->
+    <div class="floating-ring-1 ring-float"><i class="fa-solid fa-plane"></i></div>
+    <div class="floating-ring-2 ring-float-2"><i class="fa-solid fa-compass"></i></div>
+    <div class="floating-ring-3 ring-float"><i class="fa-solid fa-globe"></i></div>
+
+    <!-- Twinkling stars -->
+    <div class="star-twinkle" style="position:fixed;top:8%;left:12%;color:var(--color-accent);opacity:0.3;font-size:1.5rem;pointer-events:none;z-index:0;"><i class="fa-solid fa-star"></i></div>
+    <div class="star-twinkle" style="position:fixed;top:15%;right:15%;color:var(--color-accent);opacity:0.3;font-size:1.25rem;pointer-events:none;z-index:0;"><i class="fa-solid fa-star"></i></div>
+    <div class="star-twinkle" style="position:fixed;top:70%;left:20%;color:var(--color-accent);opacity:0.2;font-size:1.875rem;pointer-events:none;z-index:0;"><i class="fa-solid fa-star"></i></div>
+    <div class="star-twinkle" style="position:fixed;bottom:15%;right:20%;color:var(--color-accent);opacity:0.2;font-size:1.5rem;pointer-events:none;z-index:0;"><i class="fa-solid fa-star"></i></div>
+    <div class="star-twinkle" style="position:fixed;top:45%;right:5%;color:var(--color-accent);opacity:0.25;font-size:1.25rem;pointer-events:none;z-index:0;"><i class="fa-solid fa-star"></i></div>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <div style="position:relative;z-index:10;width:100%;max-width:580px;padding:0 1rem;">
+        <div class="error-card fade-in-up">
+
+            <!-- Brand Logo -->
+            <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
+                <a href="index.html" style="display:inline-flex;align-items:center;gap:0.6rem;text-decoration:none;" class="group">
+                    <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(220,38,38,0.3);">
+                        <i class="fa-solid fa-plane" style="color:white;font-size:1.1rem;"></i>
+                    </div>
+                    <div style="display:flex;flex-direction:column;line-height:1;">
+                        <span style="font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;color:var(--color-primary-text);">
+                            Ignite<span style="color:var(--color-accent);">Travel</span>
+                        </span>
+                        <span style="font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--color-secondary-text);margin-top:0.25rem;">
+                            Holiday Packages
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Compass Icon -->
+            <div class="floating" style="text-align:center;margin-bottom:0.5rem;">
+                <i class="fa-solid fa-compass" style="color:var(--color-accent);opacity:0.5;font-size:3.5rem;"></i>
+            </div>
+
+            <!-- 404 Number -->
+            <div class="error-number pulse-glow" style="text-align:center;">404</div>
+
+            <!-- Error Title -->
+            <h1 style="text-align:center;font-size:1.75rem;font-weight:800;line-height:1.2;margin:1rem 0;color:var(--color-primary-text);">
+                Looks Like You've <span style="font-style:italic;color:var(--color-accent);">Lost Your Way</span>
+            </h1>
+
+            <!-- Error Message -->
+            <p style="text-align:center;font-size:1rem;line-height:1.6;color:var(--color-secondary-text);max-width:26rem;margin:0 auto;">
+                The page you're looking for has wandered off the map. But don't worry — your next adventure is still right where you left it.
+            </p>
+
+            <!-- Action Buttons -->
+            <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem;">
+                <a href="index.html" class="btn-primary" style="padding:0.875rem 2rem;border-radius:9999px;font-weight:700;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;">
+                    <i class="fa-solid fa-house"></i> Back to Home
+                </a>
+                <a href="destinations.html" class="btn-outline" style="padding:0.875rem 2rem;border-radius:9999px;font-weight:700;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;">
+                    <i class="fa-solid fa-map"></i> Explore Destinations
+                </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem 1rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--color-border);">
+                <a href="about.html" class="quick-link">About</a>
+                <span style="color:var(--color-border);">|</span>
+                <a href="destinations.html" class="quick-link">Destinations</a>
+                <span style="color:var(--color-border);">|</span>
+                <a href="packages.html" class="quick-link">Packages</a>
+                <span style="color:var(--color-border);">|</span>
+                <a href="blog.html" class="quick-link">Journal</a>
+                <span style="color:var(--color-border);">|</span>
+                <a href="contact.html" class="quick-link">Contact</a>
+            </div>
+
+            <!-- Search Hint -->
+            <div style="margin-top:1.5rem;text-align:center;">
+                <p style="font-size:0.85rem;color:var(--color-secondary-text);margin:0;">
+                    <i class="fa-solid fa-search" style="color:var(--color-accent);margin-right:0.25rem;"></i>
+                    Need help finding something?
+                    <a href="contact.html" class="quick-link" style="margin-left:0.25rem;">Talk to our travel experts</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+
+            // ===== THEME HANDLING =====
+            const updateThemeIcon = (isDark) => {
+                themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            };
+
+            const savedTheme = localStorage.getItem('travel-theme') || (localStorage.getItem('travel-dark') === 'true' ? 'dark' : (localStorage.getItem('travel-dark') === 'false' ? 'light' : null));
+            if (savedTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+                html.classList.add('dark');
+                updateThemeIcon(true);
+            } else if (savedTheme === 'light') {
+                html.setAttribute('data-theme', 'light');
+                html.classList.remove('dark');
+                updateThemeIcon(false);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                html.setAttribute('data-theme', 'dark');
+                html.classList.add('dark');
+                updateThemeIcon(true);
+            }
+
+            // Theme toggle button
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                const isDark = html.getAttribute('data-theme') === 'dark';
+                const newTheme = isDark ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                html.classList.toggle('dark', newTheme === 'dark');
+                localStorage.setItem('travel-theme', newTheme);
+                localStorage.setItem('travel-dark', newTheme === 'dark' ? 'true' : 'false');
+                updateThemeIcon(!isDark);
+            });
+
+            // ===== RTL HANDLING =====
+            const savedRtl = localStorage.getItem('travel-rtl');
+            if (savedRtl === 'rtl') {
+                html.setAttribute('dir', 'rtl');
+            }
+
+            document.getElementById('rtl-toggle').addEventListener('click', () => {
+                const isRtl = html.getAttribute('dir') === 'rtl';
+                const newDir = isRtl ? 'ltr' : 'rtl';
+                html.setAttribute('dir', newDir);
+                localStorage.setItem('travel-rtl', newDir);
+            });
+
+            // ===== KEYBOARD SHORTCUTS =====
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                switch (e.key.toLowerCase()) {
+                    case 'h': window.location.href = 'index.html'; break;
+                    case 'd': window.location.href = 'destinations.html'; break;
+                    case 'p': window.location.href = 'packages.html'; break;
+                    case 'a': window.location.href = 'about.html'; break;
+                    case 'b': window.location.href = 'blog.html'; break;
+                    case 'c': window.location.href = 'contact.html'; break;
+                }
+            });
+
+            // ===== CONSOLE EASTER EGG =====
+            console.log('%c✈️ IgniteTravel', 'font-size:24px;font-weight:bold;color:#dc2626;');
+            console.log('%c404 · Page Not Found', 'font-size:16px;color:#991b1b;');
+            console.log('%cLooks like you took a wrong turn! Let\'s get you back to the journey.', 'font-size:12px;color:#6b7280;');
+            console.log('%c💡 Shortcuts: H=Home · D=Destinations · P=Packages · A=About · B=Blog · C=Contact', 'font-size:11px;color:#dc2626;font-weight:bold;');
+        });
+    </script>
+
+</body>
+</html>

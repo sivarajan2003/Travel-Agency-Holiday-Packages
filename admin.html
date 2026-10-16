@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | IgniteTravel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            red: '#dc2626',
+                            black: '#0a0a0a',
+                            dark: '#111111'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('travel-theme') || (localStorage.getItem('travel-dark') === 'true' ? 'dark' : (localStorage.getItem('travel-dark') === 'false' ? 'light' : null));
+            if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            var rtl = localStorage.getItem('travel-rtl');
+            if (rtl === 'rtl') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+        })();
+    </script>
+
+    <style>
+        body { -webkit-font-smoothing: antialiased; }
+        * { transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ============ RTL Support ============ */
+        html[dir="rtl"] body { direction: rtl; }
+        html[dir="rtl"] .ml-3 { margin-left: 0 !important; margin-right: 0.75rem !important; }
+        html[dir="rtl"] .ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+        html[dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+        html[dir="rtl"] .mr-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+        html[dir="rtl"] .mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        html[dir="rtl"] .pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+        html[dir="rtl"] .pr-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+        html[dir="rtl"] .border-r { border-right: none !important; border-left: 1px solid #e4e4e7 !important; }
+        html[dir="rtl"] .dark .border-r { border-left-color: #27272a !important; }
+        html[dir="rtl"] .border-l { border-left: none !important; border-right: 1px solid #e4e4e7 !important; }
+        html[dir="rtl"] .text-left { text-align: right !important; }
+        html[dir="rtl"] .text-right { text-align: left !important; }
+        html[dir="rtl"] #sidebar { left: auto; right: 0; }
+        html[dir="rtl"] #sidebar.-translate-x-full { transform: translateX(100%) !important; }
+        html[dir="rtl"] #sidebar.lg\:translate-x-0 { transform: translateX(0) !important; }
+        html[dir="rtl"] .fa-arrow-right:before { content: "\f060"; }
+        html[dir="rtl"] .fa-arrow-right-from-bracket:before { content: "\f08b"; }
+
+        #sidebar { transition: transform 0.3s ease-in-out; }
+
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.5s ease-out forwards; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================
+           SIDEBAR ACTIVE STATE — only the current section is red
+        ============================================================ */
+        .admin-nav-link {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        /* All links default: no red bar */
+        .admin-nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background-color: #dc2626;
+            border-radius: 0 3px 3px 0;
+            transition: height 0.25s ease;
+        }
+        /* Only the active link gets the red bar */
+        .admin-nav-link.active::before {
+            height: 60%;
+        }
+        html[dir="rtl"] .admin-nav-link::before {
+            left: auto;
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* Active link styling — RED pill */
+        .admin-nav-link.active {
+            background-color: #dc2626;
+            color: #ffffff;
+            box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.35);
+        }
+        .admin-nav-link.active i { color: #ffffff; }
+        .admin-nav-link.active .nav-badge {
+            background-color: rgba(255,255,255,0.25);
+            color: #ffffff;
+        }
+
+        /* Prevent horizontal overflow */
+        html, body { overflow-x: hidden; max-width: 100vw; }
+
+        /* Sidebar responsive positioning */
+        @media (max-width: 1023px) {
+            #sidebar {
+                position: fixed !important;
+                top: 0; bottom: 0;
+                width: 18rem;
+                z-index: 50;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            html[dir="ltr"] #sidebar {
+                left: 0 !important;
+                right: auto !important;
+                transform: translateX(-100%);
+            }
+            html[dir="ltr"] #sidebar.sidebar-open {
+                transform: translateX(0) !important;
+            }
+            html[dir="rtl"] #sidebar {
+                right: 0 !important;
+                left: auto !important;
+                transform: translateX(100%);
+                border-left-width: 1px;
+                border-right-width: 0;
+            }
+            html[dir="rtl"] #sidebar.sidebar-open {
+                transform: translateX(0) !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            #sidebar {
+                position: static !important;
+                transform: none !important;
+            }
+            html[dir="rtl"] #sidebar {
+                border-left-width: 1px;
+                border-right-width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-brand-black text-zinc-900 dark:text-white antialiased flex flex-col min-h-screen">
+
+    <div id="overlay" class="fixed inset-0 bg-brand-black/80 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity duration-300"></div>
+
+    <div class="flex h-screen overflow-hidden relative">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside id="sidebar" class="bg-white dark:bg-brand-black border-r border-zinc-200 dark:border-zinc-800 flex flex-col h-full shrink-0">
+
+            <div class="px-6 pt-8 pb-6 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-900">
+                <a href="index.html" class="flex items-center gap-3 group shrink-0">
+                    <div class="w-11 h-11 rounded-xl bg-brand-red flex items-center justify-center shadow-lg shadow-brand-red/30">
+                        <i class="fa-solid fa-plane text-white text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-tight text-black dark:text-white">
+                            Ignite<span class="text-brand-red">Travel</span>
+                        </span>
+                        <span class="text-[10px] tracking-[0.15em] uppercase text-zinc-500 dark:text-zinc-400 font-bold leading-none mt-1">
+                            Admin Panel
+                        </span>
+                    </div>
+                </a>
+                <button id="closeSidebarBtn" onclick="closeSidebar()" aria-label="Close Sidebar" class="lg:hidden relative z-20 w-9 h-9 rounded-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-brand-red hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer">
+                    <i class="fas fa-times text-base"></i>
+                </button>
+            </div>
+
+            <div class="lg:hidden px-6 py-4 flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-900">
+                <button id="mobileRtlToggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-brand-red hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all">
+                    <i class="fas fa-arrow-right-arrow-left"></i>
+                </button>
+                <button id="mobileDarkToggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-brand-red hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all">
+                    <i id="mobileThemeIcon" class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <nav id="sidebar-nav" class="mt-6 flex-1 px-4 space-y-2 overflow-y-auto no-scrollbar">
+
+                <!-- Dashboard -->
+                <a href="javascript:void(0)" data-page="dashboard" onclick="showPage('dashboard', this)" class="admin-nav-link active flex items-center px-4 py-3.5 text-sm font-bold rounded-xl transition-all">
+                    <i class="fas fa-chart-line w-6 text-lg"></i>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+
+                <!-- Bookings -->
+                <a href="javascript:void(0)" data-page="bookings" onclick="showPage('bookings', this)" class="admin-nav-link flex items-center px-4 py-3.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-all">
+                    <i class="fas fa-list-check w-6 text-lg"></i>
+                    <span class="ml-3">Bookings</span>
+                    <span class="nav-badge ml-auto text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-brand-red/10 text-brand-red font-bold">4</span>
+                </a>
+
+                <!-- Packages -->
+                <a href="javascript:void(0)" data-page="packages" onclick="showPage('packages', this)" class="admin-nav-link flex items-center px-4 py-3.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-all">
+                    <i class="fas fa-map-location-dot w-6 text-lg"></i>
+                    <span class="ml-3">Packages</span>
+                    <span class="nav-badge ml-auto text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-brand-red/10 text-brand-red font-bold">4</span>
+                </a>
+
+                <!-- Customer Leads -->
+                <a href="javascript:void(0)" data-page="leads" onclick="showPage('leads', this)" class="admin-nav-link flex items-center px-4 py-3.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-all">
+                    <i class="fas fa-envelope-open-text w-6 text-lg"></i>
+                    <span class="ml-3">Customer Leads</span>
+                    <span class="nav-badge ml-auto text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-brand-red/10 text-brand-red font-bold">4</span>
+                </a>
+
+                <!-- User Accounts -->
+                <a href="javascript:void(0)" data-page="users" onclick="showPage('users', this)" class="admin-nav-link flex items-center px-4 py-3.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-all">
+                    <i class="fas fa-users w-6 text-lg"></i>
+                    <span class="ml-3">User Accounts</span>
+                    <span class="nav-badge ml-auto text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-brand-red/10 text-brand-red font-bold">4</span>
+                </a>
+
+                <!-- Analytics -->
+                <a href="javascript:void(0)" data-page="analytics" onclick="showPage('analytics', this)" class="admin-nav-link flex items-center px-4 py-3.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-all">
+                    <i class="fas fa-chart-pie w-6 text-lg"></i>
+                    <span class="ml-3">Analytics</span>
+                </a>
+
+                <div class="border-t border-zinc-200 dark:border-zinc-800 my-6"></div>
+
+                <a href="index.html" class="flex items-center px-4 py-3.5 text-sm font-medium text-zinc-500 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-brand-red transition-colors">
+                    <i class="fas fa-arrow-right-from-bracket w-6"></i>
+                    <span class="ml-3">Exit Admin</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- ============ MAIN CONTENT ============ -->
+        <main class="flex-1 flex flex-col overflow-y-auto w-full relative bg-white dark:bg-brand-black">
+
+            <header class="bg-white/90 dark:bg-brand-black/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 px-4 sm:px-6 py-4 sticky top-0 z-30 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <button id="hamburgerBtn" class="lg:hidden w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-black dark:bg-white text-white dark:text-black shadow-md">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                    <div class="min-w-0">
+                        <h1 id="mainTitle" class="text-base sm:text-xl md:text-2xl font-bold tracking-tight text-black dark:text-white truncate">Dashboard</h1>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                    <div class="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 bg-zinc-100 dark:bg-brand-dark rounded-full border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:border-brand-red transition-colors">
+                        <img src="assets/jp2.avif" alt="Admin" class="w-8 h-8 rounded-full object-cover border border-zinc-300 dark:border-zinc-600">
+                        <div class="hidden sm:block text-left">
+                            <p class="text-xs font-bold text-black dark:text-white leading-tight">Alex Morgan</p>
+                            <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-widest leading-tight">Super Admin</p>
+                        </div>
+                    </div>
+
+                    <button id="desktopRtlToggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-brand-dark text-zinc-600 dark:text-zinc-400 hover:text-brand-red hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all shadow-sm" title="Toggle RTL">
+                        <i class="fas fa-arrow-right-arrow-left text-sm"></i>
+                    </button>
+
+                    <button id="desktopDarkToggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-brand-dark text-zinc-600 dark:text-zinc-400 hover:text-brand-red hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all shadow-sm" title="Toggle theme">
+                        <i id="desktopThemeIcon" class="fas fa-moon text-sm"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="p-4 sm:p-6 lg:p-10 space-y-6 sm:space-y-8 max-w-[1440px] mx-auto w-full relative z-10">
+
+                <!-- ================= TAB 1: DASHBOARD ================= -->
+                <div id="page-dashboard" class="page-content active space-y-6 sm:space-y-8">
+
+                    <div class="bg-black rounded-2xl sm:rounded-3xl relative overflow-hidden shadow-2xl">
+                        <div class="absolute inset-0 opacity-50">
+                            <img src="assets/ad1.avif" alt="Control Center" class="w-full h-full object-cover object-center">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
+
+                        <div class="relative z-10 p-6 sm:p-8 lg:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div class="max-w-xl">
+                                <span class="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/20 text-brand-red text-[10px] font-black uppercase tracking-widest rounded-full mb-4 border border-brand-red/30">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse"></span> Live System Status
+                                </span>
+                                <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-white mb-3 leading-tight tracking-tight">Operations Control Center.</h2>
+                                <p class="text-sm sm:text-base text-zinc-300 font-medium mb-6">Real-time overview of bookings, packages, customer activity, and revenue across the entire IgniteTravel platform.</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button onclick="showPage('bookings', document.querySelector('[data-page=bookings]'))" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-brand-red text-white font-bold text-sm hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-brand-red/30">
+                                        <i class="fas fa-list-check mr-2"></i> Manage Bookings
+                                    </button>
+                                    <button onclick="showPage('analytics', document.querySelector('[data-page=analytics]'))" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-sm hover:bg-white/20 transition-all">
+                                        <i class="fas fa-chart-pie mr-2"></i> View Analytics
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        <div class="bg-white dark:bg-brand-black rounded-2xl p-5 sm:p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-50 dark:bg-red-950/40 text-brand-red text-xl"><i class="fas fa-dollar-sign"></i></div>
+                                <span class="text-xs font-bold text-brand-red">+14.2%</span>
+                            </div>
+                            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Revenue (MTD)</p>
+                            <p class="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1">$482,900</p>
+                            <p class="text-xs text-zinc-400">vs last month</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl p-5 sm:p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-50 dark:bg-red-950/40 text-brand-red text-xl"><i class="fas fa-suitcase-rolling"></i></div>
+                                <span class="text-xs font-bold text-brand-red">+8.5%</span>
+                            </div>
+                            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Bookings</p>
+                            <p class="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1">1,842</p>
+                            <p class="text-xs text-zinc-400">This month</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl p-5 sm:p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-50 dark:bg-red-950/40 text-brand-red text-xl"><i class="fas fa-users"></i></div>
+                                <span class="text-xs font-bold text-brand-red">+320</span>
+                            </div>
+                            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Active Users</p>
+                            <p class="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1">4,120</p>
+                            <p class="text-xs text-zinc-400">This week</p>
+                        </div>
+
+                        <div class="bg-brand-red rounded-2xl p-5 sm:p-6 shadow-md text-white flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-base sm:text-lg mb-1">New Leads</h3>
+                                <p class="text-xs text-red-100 mb-4">4 urgent follow-ups waiting.</p>
+                            </div>
+                            <p class="text-3xl font-bold">4</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="lg:col-span-2 bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 shadow-sm">
+                            <div class="flex items-center justify-between mb-5">
+                                <h3 class="text-base sm:text-lg font-bold text-black dark:text-white">Recent Bookings</h3>
+                                <button onclick="showPage('bookings', document.querySelector('[data-page=bookings]'))" class="text-xs font-bold text-brand-red hover:underline">View All</button>
+                            </div>
+                            <div class="space-y-3 sm:space-y-4">
+                                <div class="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                    <img src="assets/ad2.avif" alt="Bali" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-bold text-black dark:text-white truncate">Bali Island Retreat</p>
+                                        <p class="text-xs text-zinc-400 truncate">Sarah Jenkins · $2,150</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider flex-shrink-0">Confirmed</span>
+                                </div>
+                                <div class="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                    <img src="assets/ad3.avif" alt="Swiss Alps" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-bold text-black dark:text-white truncate">Swiss Alps Explorer</p>
+                                        <p class="text-xs text-zinc-400 truncate">Michael Chang · $3,840</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-[10px] font-bold rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white uppercase tracking-wider flex-shrink-0">Pending</span>
+                                </div>
+                                <div class="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                    <img src="assets/ad4.avif" alt="Tokyo" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-bold text-black dark:text-white truncate">Tokyo Cherry Blossom</p>
+                                        <p class="text-xs text-zinc-400 truncate">Emily Rodriguez · $2,499</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider flex-shrink-0">Confirmed</span>
+                                </div>
+                                <div class="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                    <img src="assets/ad5.avif"alt="Maldives" class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-bold text-black dark:text-white truncate">Maldives Overwater</p>
+                                        <p class="text-xs text-zinc-400 truncate">David Becker · $3,200</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider flex-shrink-0">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 shadow-sm">
+                            <h3 class="text-base sm:text-lg font-bold text-black dark:text-white mb-1">Top Destinations</h3>
+                            <p class="text-xs text-zinc-500 mb-5">By booking volume this month</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Bali, Indonesia</span>
+                                        <span class="text-zinc-500 font-bold">428</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5"><div class="bg-brand-red h-1.5 rounded-full" style="width: 88%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Swiss Alps</span>
+                                        <span class="text-zinc-500 font-bold">312</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5"><div class="bg-brand-red h-1.5 rounded-full" style="width: 72%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Tokyo, Japan</span>
+                                        <span class="text-zinc-500 font-bold">287</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5"><div class="bg-brand-red h-1.5 rounded-full" style="width: 65%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Maldives</span>
+                                        <span class="text-zinc-500 font-bold">198</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5"><div class="bg-brand-red h-1.5 rounded-full" style="width: 48%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 2: BOOKINGS ================= -->
+                <div id="page-bookings" class="page-content space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-black dark:text-white">Bookings Management</h2>
+                            <p class="text-sm text-zinc-500 font-medium mt-1">Real-time sync with IgniteTravel booking engine.</p>
+                        </div>
+                        <button class="px-4 sm:px-5 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-colors">
+                            <i class="fas fa-file-export mr-2"></i>Export Report
+                        </button>
+                    </div>
+
+                    <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
+                        <div class="p-5 border-b border-zinc-100 dark:border-zinc-800">
+                            <h3 class="font-bold text-base sm:text-lg text-black dark:text-white">Recent Bookings</h3>
+                            <p class="text-xs text-zinc-400 mt-0.5">Showing 4 of 1,842 total</p>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-zinc-600 dark:text-zinc-300 min-w-[900px]">
+                                <thead class="bg-zinc-50 dark:bg-brand-dark text-xs uppercase tracking-wider text-zinc-400 border-b border-zinc-200 dark:border-zinc-800">
+                                    <tr>
+                                        <th class="py-4 px-6 font-bold">Booking ID</th>
+                                        <th class="py-4 px-6 font-bold">Traveler</th>
+                                        <th class="py-4 px-6 font-bold">Package</th>
+                                        <th class="py-4 px-6 font-bold">Dates</th>
+                                        <th class="py-4 px-6 font-bold">Revenue</th>
+                                        <th class="py-4 px-6 font-bold">Status</th>
+                                        <th class="py-4 px-6 text-right font-bold">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800">
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                        <td class="py-4 px-6 font-mono font-bold text-brand-red text-xs">#IGN-89240-BLI</td>
+                                        <td class="py-4 px-6">
+                                            <div class="font-bold text-black dark:text-white text-sm">Sarah Jenkins</div>
+                                            <div class="text-xs text-zinc-400">sarah.jenkins@example.com</div>
+                                        </td>
+                                        <td class="py-4 px-6 font-medium text-sm">Bali Island Retreat</td>
+                                        <td class="py-4 px-6 text-xs text-zinc-400">Nov 02 - Nov 08</td>
+                                        <td class="py-4 px-6 font-bold text-black dark:text-white">$2,150</td>
+                                        <td class="py-4 px-6"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider">Confirmed</span></td>
+                                        <td class="py-4 px-6 text-right whitespace-nowrap">
+                                            <button onclick="showToast('Booking details displayed')" class="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-bold hover:border-brand-red hover:text-brand-red mr-1">View</button>
+                                            <button onclick="showToast('Ticket sent to client')" class="px-3 py-1.5 rounded-lg bg-black dark:bg-white text-white dark:text-black text-xs font-bold hover:bg-brand-red">Send</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                        <td class="py-4 px-6 font-mono font-bold text-brand-red text-xs">#IGN-93108-SWS</td>
+                                        <td class="py-4 px-6">
+                                            <div class="font-bold text-black dark:text-white text-sm">Michael Chang</div>
+                                            <div class="text-xs text-zinc-400">mchang@innovate.org</div>
+                                        </td>
+                                        <td class="py-4 px-6 font-medium text-sm">Swiss Alps Glacier Express</td>
+                                        <td class="py-4 px-6 text-xs text-zinc-400">Dec 18 - Dec 24</td>
+                                        <td class="py-4 px-6 font-bold text-black dark:text-white">$3,840</td>
+                                        <td class="py-4 px-6"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white uppercase tracking-wider">Pending</span></td>
+                                        <td class="py-4 px-6 text-right whitespace-nowrap">
+                                            <button onclick="showToast('Booking Approved!')" class="px-3 py-1.5 rounded-lg bg-brand-red text-white text-xs font-bold hover:bg-red-700 mr-1">Approve</button>
+                                            <button onclick="showToast('Customer contacted')" class="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-bold hover:border-brand-red hover:text-brand-red">Contact</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                        <td class="py-4 px-6 font-mono font-bold text-brand-red text-xs">#IGN-55410-TYO</td>
+                                        <td class="py-4 px-6">
+                                            <div class="font-bold text-black dark:text-white text-sm">Emily Rodriguez</div>
+                                            <div class="text-xs text-zinc-400">emily.r@voyage.co</div>
+                                        </td>
+                                        <td class="py-4 px-6 font-medium text-sm">Tokyo Cherry Blossom</td>
+                                        <td class="py-4 px-6 text-xs text-zinc-400">Nov 15 - Nov 23</td>
+                                        <td class="py-4 px-6 font-bold text-black dark:text-white">$2,499</td>
+                                        <td class="py-4 px-6"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider">Confirmed</span></td>
+                                        <td class="py-4 px-6 text-right whitespace-nowrap">
+                                            <button onclick="showToast('Booking details displayed')" class="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-bold hover:border-brand-red hover:text-brand-red mr-1">View</button>
+                                            <button onclick="showToast('Ticket sent to client')" class="px-3 py-1.5 rounded-lg bg-black dark:bg-white text-white dark:text-black text-xs font-bold hover:bg-brand-red">Send</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                        <td class="py-4 px-6 font-mono font-bold text-brand-red text-xs">#IGN-22091-MLD</td>
+                                        <td class="py-4 px-6">
+                                            <div class="font-bold text-black dark:text-white text-sm">David Becker</div>
+                                            <div class="text-xs text-zinc-400">dbecker@apex.de</div>
+                                        </td>
+                                        <td class="py-4 px-6 font-medium text-sm">Maldives Overwater Villa</td>
+                                        <td class="py-4 px-6 text-xs text-zinc-400">Dec 01 - Dec 06</td>
+                                        <td class="py-4 px-6 font-bold text-black dark:text-white">$3,200</td>
+                                        <td class="py-4 px-6"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider">Confirmed</span></td>
+                                        <td class="py-4 px-6 text-right whitespace-nowrap">
+                                            <button onclick="showToast('Booking details displayed')" class="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-bold hover:border-brand-red hover:text-brand-red mr-1">View</button>
+                                            <button onclick="showToast('Ticket sent to client')" class="px-3 py-1.5 rounded-lg bg-black dark:bg-white text-white dark:text-black text-xs font-bold hover:bg-brand-red">Send</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 3: PACKAGES ================= -->
+                <div id="page-packages" class="page-content space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-black dark:text-white">Tour Packages</h2>
+                            <p class="text-sm text-zinc-500 font-medium mt-1">Manage availability, pricing, and itineraries.</p>
+                        </div>
+                        <button onclick="openAddPackageModal()" class="px-4 sm:px-5 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>New Package
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+                        <div class="bg-white dark:bg-brand-black rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                            <div class="h-40 relative overflow-hidden shrink-0">
+                                <img src="assets/j2.avif" alt="Bali" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-brand-red text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">Active</span>
+                                <div class="absolute bottom-4 left-5 text-white"><h4 class="font-bold text-sm sm:text-base">Bali Island Retreat</h4></div>
+                            </div>
+                            <div class="p-4 sm:p-5 flex flex-col flex-1">
+                                <div class="flex justify-between items-baseline mb-4">
+                                    <span class="text-lg sm:text-xl font-bold text-brand-red">$2,150</span>
+                                    <span class="text-xs text-zinc-400 font-bold">per person</span>
+                                </div>
+                                <div class="text-xs text-zinc-500 dark:text-zinc-400 space-y-2 mb-5">
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-user-group text-brand-red w-4"></i> 18 / 20 slots</p>
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-red w-4"></i> 7 Days / 6 Nights</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5 mb-4"><div class="bg-brand-red h-1.5 rounded-full" style="width: 90%"></div></div>
+                                    <div class="flex gap-2">
+                                        <button onclick="showToast('Package Editor opened')" class="flex-1 h-10 px-3 bg-brand-red text-white rounded-lg text-xs font-bold hover:bg-red-700 transition-colors flex items-center justify-center whitespace-nowrap">Edit</button>
+                                        <button onclick="showToast('Package paused')" class="w-10 h-10 shrink-0 border-2 border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-lg text-xs font-bold hover:border-brand-red hover:text-brand-red transition-colors flex items-center justify-center" title="Pause"><i class="fas fa-pause"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                            <div class="h-40 relative overflow-hidden shrink-0">
+                                <img src="assets/j5.avif" alt="Swiss Alps" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-brand-red text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">Active</span>
+                                <div class="absolute bottom-4 left-5 text-white"><h4 class="font-bold text-sm sm:text-base">Swiss Alps Explorer</h4></div>
+                            </div>
+                            <div class="p-4 sm:p-5 flex flex-col flex-1">
+                                <div class="flex justify-between items-baseline mb-4">
+                                    <span class="text-lg sm:text-xl font-bold text-brand-red">$3,840</span>
+                                    <span class="text-xs text-zinc-400 font-bold">per person</span>
+                                </div>
+                                <div class="text-xs text-zinc-500 dark:text-zinc-400 space-y-2 mb-5">
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-user-group text-brand-red w-4"></i> 14 / 15 slots</p>
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-red w-4"></i> 6 Days / 5 Nights</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5 mb-4"><div class="bg-brand-red h-1.5 rounded-full" style="width: 93%"></div></div>
+                                    <div class="flex gap-2">
+                                        <button onclick="showToast('Package Editor opened')" class="flex-1 h-10 px-3 bg-brand-red text-white rounded-lg text-xs font-bold hover:bg-red-700 transition-colors flex items-center justify-center whitespace-nowrap">Edit</button>
+                                        <button onclick="showToast('Package paused')" class="w-10 h-10 shrink-0 border-2 border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-lg text-xs font-bold hover:border-brand-red hover:text-brand-red transition-colors flex items-center justify-center" title="Pause"><i class="fas fa-pause"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                            <div class="h-40 relative overflow-hidden shrink-0">
+                                <img src="assets/jh1.avif" alt="Tokyo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-black text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">Sold Out</span>
+                                <div class="absolute bottom-4 left-5 text-white"><h4 class="font-bold text-sm sm:text-base">Tokyo Cherry Blossom</h4></div>
+                            </div>
+                            <div class="p-4 sm:p-5 flex flex-col flex-1">
+                                <div class="flex justify-between items-baseline mb-4">
+                                    <span class="text-lg sm:text-xl font-bold text-brand-red">$2,499</span>
+                                    <span class="text-xs text-zinc-400 font-bold">per person</span>
+                                </div>
+                                <div class="text-xs text-zinc-500 dark:text-zinc-400 space-y-2 mb-5">
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-user-group text-brand-red w-4"></i> 25 / 25 slots</p>
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-red w-4"></i> 8 Days / 7 Nights</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5 mb-4"><div class="bg-brand-red h-1.5 rounded-full" style="width: 100%"></div></div>
+                                    <div class="flex gap-2">
+                                        <button onclick="showToast('Capacity increased by 5 slots')" class="flex-1 h-10 px-3 bg-brand-red text-white rounded-lg text-xs font-bold hover:bg-red-700 transition-colors flex items-center justify-center whitespace-nowrap">+ Add Slots</button>
+                                        <button onclick="showToast('Package archived')" class="w-10 h-10 shrink-0 border-2 border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-lg text-xs font-bold hover:border-brand-red hover:text-brand-red transition-colors flex items-center justify-center" title="Archive"><i class="fas fa-archive"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                            <div class="h-40 relative overflow-hidden shrink-0">
+                                <img src="assets/p3.avif" alt="Maldives" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <span class="absolute top-4 left-4 px-3 py-1 bg-brand-red text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">Active</span>
+                                <div class="absolute bottom-4 left-5 text-white"><h4 class="font-bold text-sm sm:text-base">Maldives Overwater</h4></div>
+                            </div>
+                            <div class="p-4 sm:p-5 flex flex-col flex-1">
+                                <div class="flex justify-between items-baseline mb-4">
+                                    <span class="text-lg sm:text-xl font-bold text-brand-red">$3,200</span>
+                                    <span class="text-xs text-zinc-400 font-bold">per person</span>
+                                </div>
+                                <div class="text-xs text-zinc-500 dark:text-zinc-400 space-y-2 mb-5">
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-user-group text-brand-red w-4"></i> 12 / 16 slots</p>
+                                    <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-red w-4"></i> 6 Days / 5 Nights</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-1.5 mb-4"><div class="bg-brand-red h-1.5 rounded-full" style="width: 75%"></div></div>
+                                    <div class="flex gap-2">
+                                        <button onclick="showToast('Package Editor opened')" class="flex-1 h-10 px-3 bg-brand-red text-white rounded-lg text-xs font-bold hover:bg-red-700 transition-colors flex items-center justify-center whitespace-nowrap">Edit</button>
+                                        <button onclick="showToast('Package paused')" class="w-10 h-10 shrink-0 border-2 border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-lg text-xs font-bold hover:border-brand-red hover:text-brand-red transition-colors flex items-center justify-center" title="Pause"><i class="fas fa-pause"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 4: LEADS ================= -->
+                <div id="page-leads" class="page-content space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-black dark:text-white">Customer Leads</h2>
+                            <p class="text-sm text-zinc-500 font-medium mt-1">Inbound inquiries from the Contact Us form.</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-full text-xs font-bold bg-brand-red/10 text-brand-red border border-brand-red/20 uppercase tracking-wider">
+                            4 Active Leads
+                        </span>
+                    </div>
+
+                    <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
+                        <div class="divide-y divide-zinc-200 dark:divide-zinc-800">
+                            <div class="p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                <div class="flex gap-3 sm:gap-4">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-red flex items-center justify-center text-white font-bold text-sm sm:text-lg shrink-0">MV</div>
+                                    <div class="space-y-1 flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Marcus Vance</span>
+                                            <span class="text-xs text-zinc-400">12 mins ago</span>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-red text-white uppercase tracking-wider">Urgent VIP</span>
+                                        </div>
+                                        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">"Looking for a private helicopter transfer and custom luxury yacht charter for our anniversary in Santorini next month."</p>
+                                        <p class="text-xs text-zinc-400 break-all">
+                                            <i class="fa-solid fa-envelope mr-1"></i> marcus.vance@vanceholdings.com
+                                            <span class="mx-2">·</span>
+                                            <i class="fa-solid fa-phone mr-1"></i> +1 (415) 880-1922
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <button onclick="showToast('Reply window opened')" class="px-3 sm:px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg shadow-md hover:bg-red-700 transition-colors">Reply</button>
+                                    <button onclick="showToast('Lead archived')" class="px-3 sm:px-4 py-2 border border-zinc-200 dark:border-zinc-700 text-xs font-bold rounded-lg hover:bg-zinc-100 dark:hover:bg-brand-dark">Archive</button>
+                                </div>
+                            </div>
+
+                            <div class="p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                <div class="flex gap-3 sm:gap-4">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold text-sm sm:text-lg shrink-0">PP</div>
+                                    <div class="space-y-1 flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Priya Patel</span>
+                                            <span class="text-xs text-zinc-400">1 hour ago</span>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-black dark:bg-white text-white dark:text-black uppercase tracking-wider">Group Tour</span>
+                                        </div>
+                                        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">"Can we customize the Bali 7-day itinerary for an extended family of 8 adults and 3 children with interconnected villas?"</p>
+                                        <p class="text-xs text-zinc-400 break-all">
+                                            <i class="fa-solid fa-envelope mr-1"></i> priyapatel@globaltravelers.net
+                                            <span class="mx-2">·</span>
+                                            <i class="fa-solid fa-phone mr-1"></i> +44 20 7946 0912
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <button onclick="showToast('Reply window opened')" class="px-3 sm:px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg shadow-md hover:bg-red-700 transition-colors">Reply</button>
+                                    <button onclick="showToast('Lead archived')" class="px-3 sm:px-4 py-2 border border-zinc-200 dark:border-zinc-700 text-xs font-bold rounded-lg hover:bg-zinc-100 dark:hover:bg-brand-dark">Archive</button>
+                                </div>
+                            </div>
+
+                            <div class="p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                <div class="flex gap-3 sm:gap-4">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-red flex items-center justify-center text-white font-bold text-sm sm:text-lg shrink-0">JL</div>
+                                    <div class="space-y-1 flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">James Liu</span>
+                                            <span class="text-xs text-zinc-400">3 hours ago</span>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-red text-white uppercase tracking-wider">New</span>
+                                        </div>
+                                        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">"Interested in your Maldives overwater villa package for a honeymoon in February. What's included?"</p>
+                                        <p class="text-xs text-zinc-400 break-all">
+                                            <i class="fa-solid fa-envelope mr-1"></i> james.liu@techmail.io
+                                            <span class="mx-2">·</span>
+                                            <i class="fa-solid fa-phone mr-1"></i> +1 (206) 555-0143
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <button onclick="showToast('Reply window opened')" class="px-3 sm:px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg shadow-md hover:bg-red-700 transition-colors">Reply</button>
+                                    <button onclick="showToast('Lead archived')" class="px-3 sm:px-4 py-2 border border-zinc-200 dark:border-zinc-700 text-xs font-bold rounded-lg hover:bg-zinc-100 dark:hover:bg-brand-dark">Archive</button>
+                                </div>
+                            </div>
+
+                            <div class="p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-brand-dark transition-colors">
+                                <div class="flex gap-3 sm:gap-4">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold text-sm sm:text-lg shrink-0">AS</div>
+                                    <div class="space-y-1 flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Aisha Sharma</span>
+                                            <span class="text-xs text-zinc-400">5 hours ago</span>
+                                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-black dark:bg-white text-white dark:text-black uppercase tracking-wider">Corporate</span>
+                                        </div>
+                                        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">"Planning a team retreat for 24 people in Swiss Alps this December. Need full conference + leisure setup."</p>
+                                        <p class="text-xs text-zinc-400 break-all">
+                                            <i class="fa-solid fa-envelope mr-1"></i> aisha@techflow.io
+                                            <span class="mx-2">·</span>
+                                            <i class="fa-solid fa-phone mr-1"></i> +91 98765 43210
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <button onclick="showToast('Reply window opened')" class="px-3 sm:px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg shadow-md hover:bg-red-700 transition-colors">Reply</button>
+                                    <button onclick="showToast('Lead archived')" class="px-3 sm:px-4 py-2 border border-zinc-200 dark:border-zinc-700 text-xs font-bold rounded-lg hover:bg-zinc-100 dark:hover:bg-brand-dark">Archive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 5: USERS ================= -->
+                <div id="page-users" class="page-content space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-black dark:text-white">User Accounts</h2>
+                            <p class="text-sm text-zinc-500 font-medium mt-1">Manage customer profiles and permissions.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 sm:p-5 shadow-sm flex items-center gap-3 sm:gap-4 hover:-translate-y-1 transition-transform">
+                            <img src="assets/u1.avif" alt="User" class="w-12 h-12 rounded-full object-cover shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold text-black dark:text-white text-sm truncate">Sarah Jenkins</p>
+                                <p class="text-xs text-zinc-400 mb-2 truncate">sarah.jenkins@example.com</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-brand-red/10 text-brand-red uppercase tracking-wider shrink-0">Platinum</span>
+                                    <span class="text-[10px] text-zinc-400 font-bold shrink-0">12 trips</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 sm:p-5 shadow-sm flex items-center gap-3 sm:gap-4 hover:-translate-y-1 transition-transform">
+                            <img src="assets/u2.avif" alt="User" class="w-12 h-12 rounded-full object-cover shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold text-black dark:text-white text-sm truncate">Michael Chang</p>
+                                <p class="text-xs text-zinc-400 mb-2 truncate">mchang@innovate.org</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white uppercase tracking-wider shrink-0">Gold</span>
+                                    <span class="text-[10px] text-zinc-400 font-bold shrink-0">8 trips</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 sm:p-5 shadow-sm flex items-center gap-3 sm:gap-4 hover:-translate-y-1 transition-transform">
+                            <img src="assets/u3.avif" alt="User" class="w-12 h-12 rounded-full object-cover shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold text-black dark:text-white text-sm truncate">Emily Rodriguez</p>
+                                <p class="text-xs text-zinc-400 mb-2 truncate">emily.r@voyage.co</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-zinc-400/10 text-zinc-600 uppercase tracking-wider shrink-0">Silver</span>
+                                    <span class="text-[10px] text-zinc-400 font-bold shrink-0">3 trips</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 sm:p-5 shadow-sm flex items-center gap-3 sm:gap-4 hover:-translate-y-1 transition-transform">
+                            <img src="assets/u4.avif" alt="User" class="w-12 h-12 rounded-full object-cover shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold text-black dark:text-white text-sm truncate">Priya Patel</p>
+                                <p class="text-xs text-zinc-400 mb-2 truncate">priyapatel@globaltravelers.net</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white uppercase tracking-wider shrink-0">Gold</span>
+                                    <span class="text-[10px] text-zinc-400 font-bold shrink-0">5 trips</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 6: ANALYTICS ================= -->
+                <div id="page-analytics" class="page-content space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-black dark:text-white">Analytics</h2>
+                            <p class="text-sm text-zinc-500 font-medium mt-1">Performance insights and trends.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 lg:p-8 shadow-sm">
+                            <h3 class="font-bold text-base sm:text-lg text-black dark:text-white mb-1">Revenue Trend</h3>
+                            <p class="text-xs text-zinc-500 mb-6">Last 12 months</p>
+                            <div class="flex items-end gap-1 sm:gap-2 h-32 sm:h-40">
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 45%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 55%"></div>
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 40%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 62%"></div>
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 70%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 78%"></div>
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 65%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 82%"></div>
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 75%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 88%"></div>
+                                <div class="flex-1 bg-brand-red rounded-t-lg" style="height: 92%"></div>
+                                <div class="flex-1 bg-black dark:bg-white rounded-t-lg" style="height: 85%"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-zinc-400 font-bold mt-3">
+                                <span>JAN</span><span>MAR</span><span>MAY</span><span>JUL</span><span>SEP</span><span>NOV</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 lg:p-8 shadow-sm">
+                            <h3 class="font-bold text-base sm:text-lg text-black dark:text-white mb-1">Conversion Rate</h3>
+                            <p class="text-xs text-zinc-500 mb-6">Leads to bookings</p>
+                            <div class="flex items-center gap-4 sm:gap-8">
+                                <div class="relative w-24 sm:w-32 h-24 sm:h-32 shrink-0">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+                                        <circle cx="50" cy="50" r="42" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+                                        <circle cx="50" cy="50" r="42" fill="none" stroke="#dc2626" stroke-width="10" stroke-dasharray="264" stroke-dashoffset="66" stroke-linecap="round"/>
+                                    </svg>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                        <p class="text-xl sm:text-2xl font-bold text-black dark:text-white">75%</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 text-sm flex-1">
+                                    <div class="flex justify-between">
+                                        <span class="text-zinc-500">Leads</span>
+                                        <span class="font-bold text-black dark:text-white">248</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-zinc-500">Booked</span>
+                                        <span class="font-bold text-brand-red">186</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-zinc-500">Lost</span>
+                                        <span class="font-bold text-zinc-400">62</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 lg:p-8 shadow-sm">
+                            <h3 class="font-bold text-base sm:text-lg text-black dark:text-white mb-1">Traffic Sources</h3>
+                            <p class="text-xs text-zinc-500 mb-6">Where visitors come from</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Organic Search</span>
+                                        <span class="text-zinc-500 font-bold">48%</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-2"><div class="bg-brand-red h-2 rounded-full" style="width: 48%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Social Media</span>
+                                        <span class="text-zinc-500 font-bold">32%</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-2"><div class="bg-black dark:bg-white h-2 rounded-full" style="width: 32%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Direct</span>
+                                        <span class="text-zinc-500 font-bold">14%</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-2"><div class="bg-brand-red h-2 rounded-full" style="width: 14%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="font-bold text-black dark:text-white">Referral</span>
+                                        <span class="text-zinc-500 font-bold">6%</span>
+                                    </div>
+                                    <div class="w-full bg-zinc-100 dark:bg-brand-dark rounded-full h-2"><div class="bg-black dark:bg-white h-2 rounded-full" style="width: 6%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-brand-black rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 lg:p-8 shadow-sm">
+                            <h3 class="font-bold text-base sm:text-lg text-black dark:text-white mb-1">Top Performing</h3>
+                            <p class="text-xs text-zinc-500 mb-6">Highest revenue packages</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-brand-red text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-black dark:text-white text-sm truncate">Swiss Alps Explorer</p>
+                                        <p class="text-xs text-zinc-400">$148,200</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-black dark:text-white text-sm truncate">Bali Island Retreat</p>
+                                        <p class="text-xs text-zinc-400">$92,450</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-brand-red text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-black dark:text-white text-sm truncate">Maldives Overwater</p>
+                                        <p class="text-xs text-zinc-400">$86,400</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold text-sm shrink-0">4</div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-black dark:text-white text-sm truncate">Tokyo Cherry Blossom</p>
+                                        <p class="text-xs text-zinc-400">$62,475</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="add-package-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-brand-black border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold text-black dark:text-white">Create New Package</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Add a new tour to the platform</p>
+                </div>
+                <button onclick="closeAddPackageModal()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-brand-dark flex items-center justify-center text-zinc-500 hover:text-brand-red">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="event.preventDefault(); showToast('New package published successfully!'); closeAddPackageModal();" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Package Name</label>
+                    <input type="text" placeholder="e.g. Northern Lights & Ice Hotel" required class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-brand-dark text-sm focus:border-brand-red outline-none text-black dark:text-white">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Price ($ USD)</label>
+                        <input type="number" placeholder="2499" required class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-brand-dark text-sm focus:border-brand-red outline-none text-black dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Duration</label>
+                        <input type="text" placeholder="6 Days / 5 Nights" required class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-brand-dark text-sm focus:border-brand-red outline-none text-black dark:text-white">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Destination</label>
+                        <input type="text" placeholder="Tromsø, Norway" required class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-brand-dark text-sm focus:border-brand-red outline-none text-black dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Slots</label>
+                        <input type="number" placeholder="15" required class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-brand-dark text-sm focus:border-brand-red outline-none text-black dark:text-white">
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex justify-end gap-3">
+                    <button type="button" onclick="closeAddPackageModal()" class="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-brand-dark">Cancel</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-red text-white text-xs font-bold hover:bg-red-700 shadow-md">Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-[60] bg-black dark:bg-white text-white dark:text-black px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-brand-red"></i>
+        <span id="toast-message" class="text-sm font-bold">Action completed</span>
+    </div>
+
+    <script>
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+                }, 3000);
+            }
+        }
+
+        /* ============================================================
+           TAB SWITCHING — only the clicked section is highlighted
+        ============================================================ */
+        function showPage(pageId, element) {
+            // 1. Hide all pages, show the target
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
+
+            // 2. Update header title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'bookings': 'Bookings Management',
+                'packages': 'Tour Packages',
+                'leads': 'Customer Leads',
+                'users': 'User Accounts',
+                'analytics': 'Analytics'
+            };
+            document.getElementById('mainTitle').innerText = titles[pageId] || 'Dashboard';
+
+            // 3. Reset ALL nav links to default state
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.classList.remove('active', 'bg-brand-red', 'text-white', 'shadow-lg', 'shadow-brand-red/30');
+                link.classList.add('text-zinc-600', 'dark:text-zinc-400', 'hover:bg-zinc-100', 'dark:hover:bg-zinc-900', 'hover:text-brand-red');
+                // Reset font weight
+                const span = link.querySelector('span:first-of-type');
+                if (span) {
+                    span.classList.remove('font-bold');
+                    span.classList.add('font-medium');
+                }
+            });
+
+            // 4. Apply active state ONLY to the clicked link
+            if (element) {
+                element.classList.remove('text-zinc-600', 'dark:text-zinc-400', 'hover:bg-zinc-100', 'dark:hover:bg-zinc-900', 'hover:text-brand-red');
+                element.classList.add('active', 'bg-brand-red', 'text-white', 'shadow-lg', 'shadow-brand-red/30');
+                const span = element.querySelector('span:first-of-type');
+                if (span) {
+                    span.classList.remove('font-medium');
+                    span.classList.add('font-bold');
+                }
+            }
+
+            // 5. Close sidebar on mobile
+            if (window.innerWidth < 1024) closeSidebar();
+        }
+
+        function openAddPackageModal() {
+            document.getElementById('add-package-modal').classList.remove('hidden');
+        }
+        function closeAddPackageModal() {
+            document.getElementById('add-package-modal').classList.add('hidden');
+        }
+
+        const htmlElement = document.documentElement;
+        const desktopThemeBtn = document.getElementById("desktopDarkToggle");
+        const desktopThemeIcon = document.getElementById("desktopThemeIcon");
+        const desktopRtlBtn = document.getElementById("desktopRtlToggle");
+        const mobileThemeBtn = document.getElementById("mobileDarkToggle");
+        const mobileThemeIcon = document.getElementById("mobileThemeIcon");
+        const mobileRtlBtn = document.getElementById("mobileRtlToggle");
+
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        function applyTheme() {
+            let savedTheme = localStorage.getItem('travel-theme');
+            let isDark = false;
+            if (savedTheme) {
+                isDark = savedTheme === 'dark';
+            } else {
+                let legacyDark = localStorage.getItem('travel-dark');
+                if (legacyDark !== null) {
+                    isDark = legacyDark === 'true';
+                } else {
+                    isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
+            }
+
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                if (desktopThemeIcon) desktopThemeIcon.className = 'fas fa-sun text-brand-red';
+                if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun text-brand-red';
+            } else {
+                htmlElement.classList.remove('dark');
+                if (desktopThemeIcon) desktopThemeIcon.className = 'fas fa-moon';
+                if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-moon';
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.classList.toggle('dark');
+            localStorage.setItem('travel-theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('travel-dark', isDark ? 'true' : 'false');
+            applyTheme();
+        }
+
+        if (desktopThemeBtn) desktopThemeBtn.addEventListener('click', toggleTheme);
+        if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+        function toggleRTL() {
+            const currentDir = htmlElement.getAttribute("dir");
+            const newDir = currentDir === "rtl" ? "ltr" : "rtl";
+            htmlElement.setAttribute("dir", newDir);
+            localStorage.setItem("travel-rtl", newDir);
+        }
+
+        if (desktopRtlBtn) desktopRtlBtn.addEventListener('click', toggleRTL);
+        if (mobileRtlBtn) mobileRtlBtn.addEventListener('click', toggleRTL);
+
+        function openSidebar() {
+            sidebar.classList.add('sidebar-open');
+            sidebar.classList.remove('-translate-x-full', 'translate-x-full');
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('sidebar-open');
+            const isRTL = htmlElement.getAttribute("dir") === "rtl";
+            if (isRTL) {
+                sidebar.classList.add('translate-x-full');
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-full');
+            }
+            overlay.classList.remove('opacity-100');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+            document.body.style.overflow = '';
+        }
+
+        if (hamburgerBtn) hamburgerBtn.addEventListener('click', openSidebar);
+        if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+        if (overlay) overlay.addEventListener('click', closeSidebar);
+
+        applyTheme();
+        const savedRTL = localStorage.getItem("travel-rtl");
+        if (savedRTL) htmlElement.setAttribute("dir", savedRTL);
+    </script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | TravelSpark — Wander Differently</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon (online) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#dc2626',
+                            black: '#0a0a0a',
+                            dark: '#111111'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .img-hover-zoom { overflow: hidden; }
+        .img-hover-zoom img { transition: transform 0.7s ease; }
+        .img-hover-zoom:hover img { transform: scale(1.1); }
+        .nav-link.active { color: #dc2626; position: relative; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #dc2626;
+        }
+        /* ================= Comprehensive RTL Support ================= */
+        html[dir="rtl"] body {
+            direction: rtl;
+            text-align: right;
+        }
+        html[dir="rtl"] .text-left { text-align: right !important; }
+        html[dir="rtl"] .text-right { text-align: left !important; }
+
+        /* Margins & Paddings */
+        html[dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+        html[dir="rtl"] .mr-auto { margin-right: 0 !important; margin-left: auto !important; }
+        html[dir="rtl"] .ml-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+        html[dir="rtl"] .mr-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+        html[dir="rtl"] .ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+        html[dir="rtl"] .mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        html[dir="rtl"] .ml-3 { margin-left: 0 !important; margin-right: 0.75rem !important; }
+        html[dir="rtl"] .mr-3 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+        html[dir="rtl"] .ml-4 { margin-left: 0 !important; margin-right: 1rem !important; }
+        html[dir="rtl"] .mr-4 { margin-right: 0 !important; margin-left: 1rem !important; }
+
+        html[dir="rtl"] .pl-2 { padding-left: 0 !important; padding-right: 0.5rem !important; }
+        html[dir="rtl"] .pr-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+        html[dir="rtl"] .pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+        html[dir="rtl"] .pr-3 { padding-right: 0 !important; padding-left: 0.75rem !important; }
+        html[dir="rtl"] .pl-4 { padding-left: 0 !important; padding-right: 1rem !important; }
+        html[dir="rtl"] .pr-4 { padding-right: 0 !important; padding-left: 1rem !important; }
+        html[dir="rtl"] .pl-6 { padding-left: 0 !important; padding-right: 1.5rem !important; }
+        html[dir="rtl"] .pr-6 { padding-right: 0 !important; padding-left: 1.5rem !important; }
+
+        /* Left/Right Absolute Positions */
+        html[dir="rtl"] .left-0 { left: auto !important; right: 0 !important; }
+        html[dir="rtl"] .right-0 { right: auto !important; left: 0 !important; }
+        html[dir="rtl"] .left-3 { left: auto !important; right: 0.75rem !important; }
+        html[dir="rtl"] .right-3 { right: auto !important; left: 0.75rem !important; }
+        html[dir="rtl"] .left-4 { left: auto !important; right: 1rem !important; }
+        html[dir="rtl"] .right-4 { right: auto !important; left: 1rem !important; }
+        html[dir="rtl"] .left-6 { left: auto !important; right: 1.5rem !important; }
+        html[dir="rtl"] .right-6 { right: auto !important; left: 1.5rem !important; }
+
+        /* Borders */
+        html[dir="rtl"] .border-r { border-right-width: 0 !important; border-left-width: 1px !important; }
+        html[dir="rtl"] .border-l { border-left-width: 0 !important; border-right-width: 1px !important; }
+
+        /* Icons & Transforms */
+        html[dir="rtl"] .fa-arrow-right:before { content: "\f060"; }
+        html[dir="rtl"] .fa-arrow-left:before { content: "\f061"; }
+        html[dir="rtl"] .fa-chevron-right:before { content: "\f053"; }
+        html[dir="rtl"] .fa-chevron-left:before { content: "\f054"; }
+        html[dir="rtl"] .fa-arrow-right-from-bracket:before { content: "\f08b"; }
+        html[dir="rtl"] .group-hover\:translate-x-1:hover i { transform: translateX(-0.25rem); }
+
+        /* Dropdown Alignment */
+        html[dir="rtl"] .dashboard-menu {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        /* Nav active line */
+        html[dir="rtl"] .nav-link.active::after {
+            left: auto;
+            right: 0;
+        }
+
+        /* Space-x reverse */
+        html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+        /* ===== HOME DROPDOWN ===== */
+        .home-dropdown {
+            position: relative;
+        }
+        .home-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            min-width: 180px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .dark .home-dropdown-panel {
+            background: #111111;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .home-dropdown:hover .home-dropdown-panel,
+        .home-dropdown.open .home-dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .home-dropdown:hover .home-chevron,
+        .home-dropdown.open .home-chevron {
+            transform: rotate(180deg);
+        }
+        .home-chevron {
+            transition: transform 0.25s ease;
+        }
+        .home-dropdown-item {
+            display: block;
+            padding: 0.65rem 1.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .dark .home-dropdown-item {
+            color: #cbd5e1;
+        }
+        .home-dropdown-item:hover {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        .dark .home-dropdown-item:hover {
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+        .home-dropdown-item.highlight-red {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .home-dropdown-item.highlight-red:hover {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+        .dark .home-dropdown-item.highlight-red:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: #f87171;
+        }
+    </style>
+<script>
+    (function() {
+        var theme = localStorage.getItem("travel-theme") || (localStorage.getItem("travel-dark") === "true" ? "dark" : (localStorage.getItem("travel-dark") === "false" ? "light" : null));
+        if (theme === "dark" || (!theme && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        var rtl = localStorage.getItem("travel-rtl");
+        if (rtl === "rtl") {
+            document.documentElement.setAttribute("dir", "rtl");
+        } else {
+            document.documentElement.setAttribute("dir", "ltr");
+        }
+    })();
+</script>
+<style>
+    html[dir="rtl"] #mobile-menu.translate-x-full {
+        transform: translateX(-100%) !important;
+    }
+    html[dir="rtl"] #mobile-menu:not(.translate-x-full) {
+        transform: translateX(0) !important;
+    }
+</style>
+</head>
+<body class="bg-white dark:bg-brand-black text-zinc-900 dark:text-white antialiased flex flex-col min-h-screen">
+
+    <!-- 1. HEADER (Dynamic navbar) -->
+    <header id="navbar" class="fixed w-full z-50 bg-white/90 dark:bg-brand-black/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+        <!-- Navbar injected by JS -->
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20 md:pt-24">
+
+        <!-- ============================================================ -->
+        <!-- HERO SECTION — ABOUT -->
+        <!-- ============================================================ -->
+        <section class="relative w-full min-h-[500px] h-auto md:h-[85vh] md:min-h-[650px] py-16 md:py-0 flex items-center justify-center bg-brand-black overflow-hidden">
+            <div class="absolute inset-0 w-full h-full">
+                <img src="assets/ab2.avif" alt="About TravelSpark" class="w-full h-full object-cover opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-80"></div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 text-center flex flex-col items-center overflow-hidden pb-4 md:pb-0">
+                <span class="text-brand-red font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-2 sm:mb-4">About TravelSpark</span>
+                <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight drop-shadow-2xl">
+                    We Live to <span class="text-brand-red">Explore</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-zinc-300 mb-5 sm:mb-12 font-medium max-w-2xl drop-shadow-md">
+                    Crafting meaningful journeys since 2015 — one unforgettable story at a time.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-compass"></i> Explore Packages
+                    </a>
+                    <a href="contact.html" class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-comments"></i> Get in Touch
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- OUR STORY SECTION -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Our Story</span>
+                        <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-6">Born From a <span class="text-brand-red">Simple Belief</span></h2>
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed">
+                            TravelSpark was founded in 2015 with a radical idea: that travel should feel personal, seamless, and unforgettable — not transactional. We were tired of cookie-cutter tours and rigid itineraries, so we built something different.
+                        </p>
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed">
+                            Today, our team of explorers, planners, and storytellers has crafted over 30,000 journeys across 60+ countries. Every itinerary we design is a collaboration — we listen, we learn, and we build something that feels like it was made just for you.
+                        </p>
+                        <p class="text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed">
+                            From the first spark of an idea to the moment you return home, we're with you every step of the way.
+                        </p>
+
+                        <!-- Mini stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+                            <div>
+                                <p class="text-3xl font-extrabold text-brand-red">10+</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mt-1">Years</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-extrabold text-brand-red">30K+</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mt-1">Trips</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-extrabold text-brand-red">60+</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mt-1">Countries</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2 img-hover-zoom rounded-2xl overflow-hidden">
+                        <img src="assets/ab1.avif" alt="Our Story" class="w-full h-[400px] lg:h-[550px] object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- OUR VALUES -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-zinc-50 dark:bg-brand-dark transition-colors border-y border-zinc-200 dark:border-zinc-900">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">What Drives Us</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-4">Our Core <span class="text-brand-red">Values</span></h2>
+                    <p class="text-zinc-500 dark:text-zinc-400">The principles that shape every journey we craft.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-stretch">
+                    <div class="bg-white dark:bg-brand-black rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-black dark:text-white min-h-[3.25rem] flex items-center justify-center leading-snug">Passion First</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">We don't sell trips — we share our love for exploration.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-black dark:text-white min-h-[3.25rem] flex items-center justify-center leading-snug">Trust & Transparency</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">No hidden fees. No surprises. Just honest, open travel planning.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-black dark:text-white min-h-[3.25rem] flex items-center justify-center leading-snug">Sustainable Travel</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">We partner with local communities and eco-conscious operators.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-3 text-black dark:text-white min-h-[3.25rem] flex items-center justify-center leading-snug">Excellence Always</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">We obsess over the details so you don't have to.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- MEET THE TEAM -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">The People Behind</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-4">Meet Our <span class="text-brand-red">Team</span></h2>
+                    <p class="text-zinc-500 dark:text-zinc-400">A small team of travel-obsessed people who've been there and done that.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-stretch">
+                    <!-- Team 1 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-64 relative overflow-hidden img-hover-zoom shrink-0">
+                            <img src="assets/am2.avif" alt="Founder" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 text-center flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold text-black dark:text-white">Ananya Sharma</h3>
+                            <div class="min-h-[2.75rem] flex items-center justify-center mt-1">
+                                <p class="text-xs text-brand-red font-semibold uppercase tracking-wider leading-snug">Founder & CEO</p>
+                            </div>
+                            <div class="min-h-[4rem] flex items-start justify-center mt-3">
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Explorer of 78 countries. Believes travel changes people.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team 2 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-64 relative overflow-hidden img-hover-zoom shrink-0">
+                            <img src="assets/am1.avif" alt="Head of Ops" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 text-center flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold text-black dark:text-white">Arjun Mehta</h3>
+                            <div class="min-h-[2.75rem] flex items-center justify-center mt-1">
+                                <p class="text-xs text-brand-red font-semibold uppercase tracking-wider leading-snug">Head of Operations</p>
+                            </div>
+                            <div class="min-h-[4rem] flex items-start justify-center mt-3">
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">The logistics mastermind behind every seamless itinerary.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team 3 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-64 relative overflow-hidden img-hover-zoom shrink-0">
+                           <img src="assets/am4.avif" alt="Travel Designer" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 text-center flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold text-black dark:text-white">Kavya Nair</h3>
+                            <div class="min-h-[2.75rem] flex items-center justify-center mt-1">
+                                <p class="text-xs text-brand-red font-semibold uppercase tracking-wider leading-snug">Lead Travel Designer</p>
+                            </div>
+                            <div class="min-h-[4rem] flex items-start justify-center mt-3">
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Turns wanderlust into detailed, unforgettable itineraries.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team 4 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-64 relative overflow-hidden img-hover-zoom shrink-0">
+                            <img src="assets/am3.avif" alt="Customer Success" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 text-center flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold text-black dark:text-white">James Okafor</h3>
+                            <div class="min-h-[2.75rem] flex items-center justify-center mt-1">
+                                <p class="text-xs text-brand-red font-semibold uppercase tracking-wider leading-snug">Customer Success Lead</p>
+                            </div>
+                            <div class="min-h-[4rem] flex items-start justify-center mt-3">
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Your 24/7 lifeline when you're on the road.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- WHY CHOOSE US -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-brand-black text-white border-y border-zinc-900">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">The Difference</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Why Book With <span class="text-brand-red">TravelSpark?</span></h2>
+                    <p class="text-zinc-400">We combine local expertise with meticulous planning so you can focus on the experience.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-3xl shadow-lg shadow-brand-red/10">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Tailor-Made</h3>
+                        <p class="text-sm text-zinc-400">Every itinerary is built from scratch around your interests.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-3xl shadow-lg shadow-brand-red/10">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Local Insiders</h3>
+                        <p class="text-sm text-zinc-400">Our on-ground teams know the hidden spots tourists miss.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-3xl shadow-lg shadow-brand-red/10">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Safe & Secure</h3>
+                        <p class="text-sm text-zinc-400">Fully bonded, with 24/7 emergency assistance included.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-3xl shadow-lg shadow-brand-red/10">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Always Reachable</h3>
+                        <p class="text-sm text-zinc-400">Real humans on call, before, during, and after your trip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- MILESTONES / TIMELINE -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-zinc-50 dark:bg-brand-dark transition-colors">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Our Journey</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-4">Milestones That <span class="text-brand-red">Shaped Us</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white dark:bg-brand-black p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-2 transition-transform duration-300">
+                        <p class="text-brand-red font-extrabold text-3xl mb-3">2015</p>
+                        <h3 class="font-bold text-black dark:text-white mb-2">The Beginning</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400">TravelSpark founded in a tiny Austin apartment with big dreams.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-2 transition-transform duration-300">
+                        <p class="text-brand-red font-extrabold text-3xl mb-3">2018</p>
+                        <h3 class="font-bold text-black dark:text-white mb-2">Going Global</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400">Expanded to 30+ countries with local expert partnerships worldwide.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-2 transition-transform duration-300">
+                        <p class="text-brand-red font-extrabold text-3xl mb-3">2021</p>
+                        <h3 class="font-bold text-black dark:text-white mb-2">10K Trips</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400">Celebrated our 10,000th customized journey and 98% guest satisfaction.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-black p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-2 transition-transform duration-300">
+                        <p class="text-brand-red font-extrabold text-3xl mb-3">2025</p>
+                        <h3 class="font-bold text-black dark:text-white mb-2">30K & Beyond</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400">Now serving 30,000+ travelers — and just getting started.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- CALL TO ACTION -->
+        <!-- ============================================================ -->
+        <section class="py-24 relative overflow-hidden bg-brand-black">
+            <div class="absolute inset-0 w-full h-full">
+                  <img src="assets/c7.avif" alt="Planes" class="w-full h-full object-cover opacity-20 grayscale">
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="max-w-2xl text-center md:text-left">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Ready to <span class="text-brand-red">Explore?</span></h2>
+                    <p class="text-lg text-zinc-400 mb-8 font-medium">Let's design an itinerary that feels like it was made just for you — because it will be.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="signup.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-transform duration-300 hover:-translate-y-1 text-center">
+                            Start Planning
+                        </a>
+                        <a href="contact.html" class="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl transition-all duration-300 text-center">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden lg:block relative">
+                    <img src="assets/am5.avif" alt="Travel Bag" class="w-72 h-72 object-cover rounded-full shadow-2xl relative z-10 border-8 border-brand-black">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. FOOTER -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- NAVBAR (Same as Index) ---
+            const navbarContainer = document.getElementById('navbar');
+            if (navbarContainer) {
+                navbarContainer.innerHTML = `
+                    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                        <div class="flex items-center justify-between h-16 md:h-20">
+                            <!-- TravelSpark Logo -->
+                            <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+                                <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-red rounded-2xl flex items-center justify-center shadow-lg shadow-brand-red/30 group-hover:scale-105 transition-transform">
+                                    <i class="fa-solid fa-plane text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <div class="flex flex-col leading-tight">
+                                    <span class="text-xl md:text-2xl font-extrabold tracking-tight">
+                                        <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                    </span>
+                                    <span class="text-[9px] md:text-[10px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                </div>
+                            </a>
+
+                            <!-- Desktop Nav -->
+                            <nav class="hidden xl:flex items-center gap-7 mx-auto">
+                                <!-- ===== HOME DROPDOWN ===== -->
+                                <div class="home-dropdown relative">
+                                    <button type="button" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center gap-1.5">
+                                        Home <i class="fa-solid fa-chevron-down text-[10px] home-chevron"></i>
+                                    </button>
+                                    <div class="home-dropdown-panel">
+                                        <a href="index.html" class="home-dropdown-item">Home 1</a>
+                                        <a href="home-2.html" class="home-dropdown-item">Home 2</a>
+                                    </div>
+                                </div>
+
+                                <a href="about.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors active">About</a>
+                                <a href="blog.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Journal</a>
+                                <a href="destinations.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Destinations</a>
+                                <a href="packages.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Packages</a>
+                                <a href="contact.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Contact</a>
+                                
+                                <!-- Dashboard Dropdown -->
+                                <div class="relative group dashboard-dropdown">
+                                    <button type="button" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center gap-1 dashboard-trigger">
+                                        Dashboard <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                                    </button>
+                                    <div class="dashboard-menu absolute top-full left-0 mt-2 w-44 bg-white dark:bg-brand-dark border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                        <a href="user.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-t-xl hover:text-brand-red">User</a>
+                                        <a href="admin.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-b-xl hover:text-brand-red">Admin</a>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            <!-- Right Side Actions -->
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <button id="rtl-toggle" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" title="Toggle RTL">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </button>
+                                <button id="theme-toggle" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                    <i class="fa-solid fa-moon dark:hidden"></i>
+                                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                                </button>
+                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-all">
+                                    <i class="fa-solid fa-bars text-lg"></i>
+                                </button>
+                                <a href="login.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 border-2 border-brand-red text-brand-red text-sm font-bold rounded-xl hover:bg-brand-red hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-user"></i> Login
+                                </a>
+                                <a href="signup.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 bg-brand-black text-white text-sm font-bold rounded-xl hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20">
+                                    Sign Up
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Overlay -->
+                    <div id="mobile-menu" class="xl:hidden fixed inset-0 w-full h-screen bg-white dark:bg-brand-black z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 overflow-y-auto">
+                        <div class="px-6 py-8 flex flex-col gap-6">
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-3">Home</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="index.html" class="text-base text-zinc-600 dark:text-zinc-300 hover:text-brand-red transition-colors">Home 1</a>
+                                    <a href="home-2.html" class="text-base text-zinc-600 dark:text-zinc-300 hover:text-brand-red transition-colors">Home 2</a>
+                                </div>
+                            </div>
+
+                            <a href="about.html" class="text-lg font-semibold text-brand-red border-b border-zinc-100 dark:border-zinc-800 pb-3">About</a>
+                            <a href="blog.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Journal</a>
+                            <a href="destinations.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Destinations</a>
+                            <a href="packages.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Packages</a>
+                            <a href="contact.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Contact</a>
+                            
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-3">Dashboard</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="user.html" class="text-base text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">User</a>
+                                    <a href="admin.html" class="text-base text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">Admin</a>
+                                </div>
+                            </div>
+
+                            
+                            <!-- Mobile Theme & RTL Controls -->
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                                <p class="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">Preferences</p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button id="mobile-rtl-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-right-left text-brand-red"></i>
+                                        <span>RTL / LTR</span>
+                                    </button>
+                                    <button id="mobile-theme-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-moon dark:hidden text-brand-red"></i>
+                                        <i class="fa-solid fa-sun hidden dark:inline text-brand-red"></i>
+                                        <span class="dark:hidden">Dark</span>
+                                        <span class="hidden dark:inline">Light</span>
+                                    </button>
+                                </div>
+                            </div>
+<div class="flex flex-col gap-4 mt-4">
+                                <a href="login.html" class="w-full py-3 border-2 border-brand-red text-brand-red text-center font-bold rounded-xl hover:bg-brand-red hover:text-white transition-colors">Login</a>
+                                <a href="signup.html" class="w-full py-3 bg-brand-black text-white text-center font-bold rounded-xl hover:bg-zinc-800 transition-colors">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Home dropdown toggle
+                const homeDropdown = document.querySelector('.home-dropdown');
+                const homeTrigger = homeDropdown ? homeDropdown.querySelector('button') : null;
+
+                if (homeTrigger && homeDropdown) {
+                    homeTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        homeDropdown.classList.toggle('open');
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        if (!homeDropdown.contains(e.target)) {
+                            homeDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Dashboard dropdown toggle
+                const dashboardDropdown = document.querySelector('.dashboard-dropdown');
+                const dashboardTrigger = dashboardDropdown ? dashboardDropdown.querySelector('.dashboard-trigger') : null;
+
+                if (dashboardTrigger && dashboardDropdown) {
+                    dashboardTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dashboardDropdown.classList.toggle('open');
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        if (!dashboardDropdown.contains(e.target)) {
+                            dashboardDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Mobile menu toggle
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && navbarContainer && mobileMenu.parentElement === navbarContainer) {
+                    document.body.appendChild(mobileMenu);
+                }
+                if (mobileMenuBtn && mobileMenu) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        mobileMenu.classList.toggle('translate-x-full');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (mobileMenu.classList.contains('translate-x-full')) {
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        } else {
+                            if (icon) {
+                                icon.classList.remove('fa-bars');
+                                icon.classList.add('fa-times');
+                            }
+                            document.body.style.overflow = 'hidden';
+                        }
+                    });
+
+                    mobileMenu.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            mobileMenu.classList.add('translate-x-full');
+                            const icon = mobileMenuBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        });
+                    });
+                }
+
+                // Dark mode toggle
+                const themeToggle = document.getElementById('theme-toggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', function() {
+                        const isDark = document.documentElement.classList.toggle('dark');
+                        localStorage.setItem('travel-theme', isDark ? 'dark' : 'light');
+                        localStorage.setItem('travel-dark', isDark ? 'true' : 'false');
+                    });
+                }
+
+                // RTL Toggle
+                const rtlToggle = document.getElementById('rtl-toggle');
+                if (rtlToggle) {
+                    rtlToggle.addEventListener('click', function() {
+                        const html = document.documentElement;
+                        const currentDir = html.getAttribute('dir');
+                        const newDir = currentDir === 'rtl' ? 'ltr' : 'rtl';
+                        html.setAttribute('dir', newDir);
+                        localStorage.setItem('travel-rtl', newDir);
+                    });
+                }
+            }
+
+            // --- FOOTER (Same as Index) ---
+            const footerContainer = document.getElementById('footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = `
+                    <footer class="footer-bg border-t border-zinc-200 dark:border-zinc-800 pt-16 pb-8">
+                        <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                                <div>
+                                    <a href="index.html" class="flex items-center gap-3 mb-4 group">
+                                        <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center shadow-lg shadow-brand-red/30">
+                                            <i class="fa-solid fa-plane text-white text-lg"></i>
+                                        </div>
+                                        <div class="flex flex-col leading-tight">
+                                            <span class="text-xl font-extrabold tracking-tight">
+                                                <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                            </span>
+                                            <span class="text-[8px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                        </div>
+                                    </a>
+                                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6">Curating meaningful journeys since 2015. We believe travel should be personal, purposeful, and unforgettable.</p>
+                                    <div class="flex gap-4">
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Explore</h4>
+                                    <ul class="flex flex-col gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="about.html" class="hover:text-brand-red transition-colors">About Us</a></li>
+                                        <li><a href="packages.html" class="hover:text-brand-red transition-colors">Packages</a></li>
+                                        <li><a href="destinations.html" class="hover:text-brand-red transition-colors">Destinations</a></li>
+                                        <li><a href="blog.html" class="hover:text-brand-red transition-colors">Journal</a></li>
+                                        <li><a href="contact.html" class="hover:text-brand-red transition-colors">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Support</h4>
+                                    <ul class="flex flex-col gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">FAQs</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Privacy Policy</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Terms of Service</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Cancellation Policy</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Get in Touch</h4>
+                                    <ul class="flex flex-col gap-4 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fa-solid fa-location-dot text-brand-red mt-0.5"></i>
+                                            <span>45 Wanderlust Lane, Suite 12, Austin, TX 78701</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-phone text-brand-red"></i>
+                                            <span>+1 (512) 555-0198</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-envelope text-brand-red"></i>
+                                            <span>hello@ignitetravel.com</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+                                <p>&copy; 2025 TravelSpark. All rights reserved.</p>
+                                <div class="flex gap-6">
+                                    <a href="#" class="hover:text-brand-red transition-colors">Privacy</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Terms</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Cookies</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

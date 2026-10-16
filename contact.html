@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | TravelSpark</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon (online) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#dc2626',
+                            black: '#0a0a0a',
+                            dark: '#111111'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .img-hover-zoom { overflow: hidden; }
+        .img-hover-zoom img { transition: transform 0.7s ease; }
+        .img-hover-zoom:hover img { transform: scale(1.1); }
+        .nav-link.active { color: #dc2626; position: relative; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #dc2626;
+        }
+        /* ================= Comprehensive RTL Support ================= */
+        html[dir="rtl"] body {
+            direction: rtl;
+            text-align: right;
+        }
+        html[dir="rtl"] .text-left { text-align: right !important; }
+        html[dir="rtl"] .text-right { text-align: left !important; }
+
+        /* Margins & Paddings */
+        html[dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+        html[dir="rtl"] .mr-auto { margin-right: 0 !important; margin-left: auto !important; }
+        html[dir="rtl"] .ml-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+        html[dir="rtl"] .mr-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+        html[dir="rtl"] .ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+        html[dir="rtl"] .mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        html[dir="rtl"] .ml-3 { margin-left: 0 !important; margin-right: 0.75rem !important; }
+        html[dir="rtl"] .mr-3 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+        html[dir="rtl"] .ml-4 { margin-left: 0 !important; margin-right: 1rem !important; }
+        html[dir="rtl"] .mr-4 { margin-right: 0 !important; margin-left: 1rem !important; }
+
+        html[dir="rtl"] .pl-2 { padding-left: 0 !important; padding-right: 0.5rem !important; }
+        html[dir="rtl"] .pr-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+        html[dir="rtl"] .pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+        html[dir="rtl"] .pr-3 { padding-right: 0 !important; padding-left: 0.75rem !important; }
+        html[dir="rtl"] .pl-4 { padding-left: 0 !important; padding-right: 1rem !important; }
+        html[dir="rtl"] .pr-4 { padding-right: 0 !important; padding-left: 1rem !important; }
+        html[dir="rtl"] .pl-6 { padding-left: 0 !important; padding-right: 1.5rem !important; }
+        html[dir="rtl"] .pr-6 { padding-right: 0 !important; padding-left: 1.5rem !important; }
+
+        /* Left/Right Absolute Positions */
+        html[dir="rtl"] .left-0 { left: auto !important; right: 0 !important; }
+        html[dir="rtl"] .right-0 { right: auto !important; left: 0 !important; }
+        html[dir="rtl"] .left-3 { left: auto !important; right: 0.75rem !important; }
+        html[dir="rtl"] .right-3 { right: auto !important; left: 0.75rem !important; }
+        html[dir="rtl"] .left-4 { left: auto !important; right: 1rem !important; }
+        html[dir="rtl"] .right-4 { right: auto !important; left: 1rem !important; }
+        html[dir="rtl"] .left-6 { left: auto !important; right: 1.5rem !important; }
+        html[dir="rtl"] .right-6 { right: auto !important; left: 1.5rem !important; }
+
+        /* Borders */
+        html[dir="rtl"] .border-r { border-right-width: 0 !important; border-left-width: 1px !important; }
+        html[dir="rtl"] .border-l { border-left-width: 0 !important; border-right-width: 1px !important; }
+
+        /* Icons & Transforms */
+        html[dir="rtl"] .fa-arrow-right:before { content: "\f060"; }
+        html[dir="rtl"] .fa-arrow-left:before { content: "\f061"; }
+        html[dir="rtl"] .fa-chevron-right:before { content: "\f053"; }
+        html[dir="rtl"] .fa-chevron-left:before { content: "\f054"; }
+        html[dir="rtl"] .fa-arrow-right-from-bracket:before { content: "\f08b"; }
+        html[dir="rtl"] .group-hover\:translate-x-1:hover i { transform: translateX(-0.25rem); }
+
+        /* Dropdown Alignment */
+        html[dir="rtl"] .dashboard-menu {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        /* Nav active line */
+        html[dir="rtl"] .nav-link.active::after {
+            left: auto;
+            right: 0;
+        }
+
+        /* Space-x reverse */
+        html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+        /* Footer background matches navbar */
+        .footer-bg {
+            background-color: #ffffff;
+        }
+        .dark .footer-bg {
+            background-color: #0a0a0a;
+        }
+
+        /* ===== HOME DROPDOWN ===== */
+        .home-dropdown {
+            position: relative;
+        }
+        .home-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            min-width: 180px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .dark .home-dropdown-panel {
+            background: #111111;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .home-dropdown:hover .home-dropdown-panel,
+        .home-dropdown.open .home-dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .home-dropdown:hover .home-chevron,
+        .home-dropdown.open .home-chevron {
+            transform: rotate(180deg);
+        }
+        .home-chevron {
+            transition: transform 0.25s ease;
+        }
+        .home-dropdown-item {
+            display: block;
+            padding: 0.65rem 1.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .dark .home-dropdown-item {
+            color: #cbd5e1;
+        }
+        .home-dropdown-item:hover {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        .dark .home-dropdown-item:hover {
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+        .home-dropdown-item.highlight-red {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .home-dropdown-item.highlight-red:hover {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+        .dark .home-dropdown-item.highlight-red:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: #f87171;
+        }
+
+        /* ===== MAP RESPONSIVE ===== */
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        @media (min-width: 640px) {
+            .map-container { height: 380px; }
+        }
+        @media (min-width: 1024px) {
+            .map-container { height: 100%; min-height: 500px; }
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(0.3);
+            transition: filter 0.3s ease;
+            display: block;
+        }
+        .map-container iframe:hover {
+            filter: grayscale(0);
+        }
+        .dark .map-container iframe {
+            filter: grayscale(0.5) invert(0.9) hue-rotate(180deg);
+        }
+        .dark .map-container iframe:hover {
+            filter: grayscale(0.2) invert(0.9) hue-rotate(180deg);
+        }
+
+        /* Contact form focus styles */
+        .form-input:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        /* Prevent horizontal overflow */
+        body {
+            overflow-x: hidden;
+        }
+        img, iframe {
+            max-width: 100%;
+        }
+    </style>
+<script>
+    (function() {
+        var theme = localStorage.getItem("travel-theme") || (localStorage.getItem("travel-dark") === "true" ? "dark" : (localStorage.getItem("travel-dark") === "false" ? "light" : null));
+        if (theme === "dark" || (!theme && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        var rtl = localStorage.getItem("travel-rtl");
+        if (rtl === "rtl") {
+            document.documentElement.setAttribute("dir", "rtl");
+        } else {
+            document.documentElement.setAttribute("dir", "ltr");
+        }
+    })();
+</script>
+<style>
+    html[dir="rtl"] #mobile-menu.translate-x-full {
+        transform: translateX(-100%) !important;
+    }
+    html[dir="rtl"] #mobile-menu:not(.translate-x-full) {
+        transform: translateX(0) !important;
+    }
+</style>
+</head>
+<body class="bg-white dark:bg-brand-black text-zinc-900 dark:text-white antialiased flex flex-col min-h-screen">
+
+    <!-- 1. HEADER (Dynamic navbar) -->
+    <header id="navbar" class="fixed w-full z-50 bg-white/90 dark:bg-brand-black/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+        <!-- Navbar injected by JS -->
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20 md:pt-24">
+
+        <!-- ========== PAGE HERO ========== -->
+        <section class="relative py-16 sm:py-20 md:py-24 bg-brand-black overflow-hidden">
+            <div class="absolute inset-0 w-full h-full">
+                <img src="assets/c1.avif" alt="Contact" class="w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-transparent"></div>
+            </div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
+                <span class="text-brand-red font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-3 sm:mb-4 inline-block">Get in Touch</span>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight">Contact Us</h1>
+                <p class="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl mx-auto px-2">Have a question about a destination, a package, or a custom trip? Our team is here to help.</p>
+            </div>
+        </section>
+
+        <!-- ========== CONTACT INFO CARDS ========== -->
+        <section class="py-14 sm:py-16 md:py-20 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+                    <!-- Card 1: Visit -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark p-6 sm:p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-red/10 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 text-brand-red text-xl sm:text-2xl">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-black dark:text-white">Visit Our Office</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">45 Wanderlust Lane, Suite 12<br>Austin, TX 78701<br>United States</p>
+                        <a href="#map" class="inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:gap-3 transition-all">
+                            Get Directions <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Card 2: Call -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark p-6 sm:p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-red/10 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 text-brand-red text-xl sm:text-2xl">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-black dark:text-white">Call Us</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+                            <a href="tel:+15125550198" class="hover:text-brand-red transition-colors">+1 (512) 555-0198</a><br>
+                            <a href="tel:+15125550199" class="hover:text-brand-red transition-colors">+1 (512) 555-0199</a>
+                        </p>
+                        <p class="text-xs text-zinc-500">Mon–Fri, 9am – 6pm CST</p>
+                    </div>
+
+                    <!-- Card 3: Email -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark p-6 sm:p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-red/10 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 text-brand-red text-xl sm:text-2xl">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-black dark:text-white">Email Us</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 break-all sm:break-normal">
+                            <a href="mailto:hello@ignitetravel.com" class="hover:text-brand-red transition-colors">hello@ignitetravel.com</a><br>
+                            <a href="mailto:support@ignitetravel.com" class="hover:text-brand-red transition-colors">support@ignitetravel.com</a>
+                        </p>
+                        <p class="text-xs text-zinc-500">We reply within 24 hours</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CONTACT FORM + MAP ========== -->
+        <section id="map" class="py-14 sm:py-16 md:py-24 bg-zinc-50 dark:bg-brand-dark transition-colors border-y border-zinc-200 dark:border-zinc-900">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
+
+                    <!-- LEFT: Contact Form -->
+                    <div class="bg-white dark:bg-brand-black p-5 sm:p-6 md:p-8 lg:p-10 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm">
+                        <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Send a Message</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-3 text-black dark:text-white">Let's plan your trip</h2>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6 sm:mb-8">Fill in the form below and our travel experts will get back to you within 24 hours.</p>
+
+                        <form class="space-y-4 sm:space-y-5" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.');">
+                            <!-- Row 1: Name + Email -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Full Name *</label>
+                                    <input type="text" required placeholder="John Doe" class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Email *</label>
+                                    <input type="email" required placeholder="you@example.com" class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white">
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Phone + Subject -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Phone</label>
+                                    <input type="tel" placeholder="+1 (555) 000-0000" class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Subject *</label>
+                                    <select required class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white cursor-pointer">
+                                        <option value="">Choose a topic</option>
+                                        <option>New Booking</option>
+                                        <option>Existing Booking</option>
+                                        <option>Custom Itinerary</option>
+                                        <option>Group Travel</option>
+                                        <option>General Inquiry</option>
+                                        <option>Partnership</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Destination -->
+                            <div>
+                                <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Destination of Interest</label>
+                                <input type="text" placeholder="e.g., Japan, Iceland, Morocco..." class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white">
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Message *</label>
+                                <textarea required rows="5" placeholder="Tell us about your dream trip..." class="form-input w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none transition-all text-sm text-black dark:text-white resize-none"></textarea>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 w-4 h-4 accent-brand-red shrink-0">
+                                <span class="text-xs text-zinc-600 dark:text-zinc-400">I agree to receive travel inspiration and offers from TravelSpark. I can unsubscribe anytime.</span>
+                            </label>
+
+                            <!-- Submit -->
+                            <button type="submit" class="w-full py-3.5 sm:py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                                <i class="fa-solid fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- RIGHT: Map + Info -->
+                    <div class="flex flex-col gap-5 sm:gap-6">
+                        <!-- Map -->
+                        <div class="map-container bg-white dark:bg-brand-black border border-zinc-100 dark:border-zinc-800 shadow-sm">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3446.7296157855455!2d-97.74308368487965!3d30.267153981788603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b599a0cc032f%3A0x5d9b464bd469d57a!2sAustin%2C%20TX!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="TravelSpark Office Location">
+                            </iframe>
+                        </div>
+
+                        <!-- Office Hours -->
+                        <div class="bg-white dark:bg-brand-black p-5 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm">
+                            <h3 class="text-base sm:text-lg font-bold mb-4 sm:mb-5 text-black dark:text-white flex items-center gap-3">
+                                <i class="fa-solid fa-clock text-brand-red"></i> Office Hours
+                            </h3>
+                            <ul class="space-y-2 sm:space-y-3 text-sm">
+                                <li class="flex justify-between items-center py-2 border-b border-zinc-100 dark:border-zinc-800 gap-3">
+                                    <span class="text-zinc-600 dark:text-zinc-400">Monday – Friday</span>
+                                    <span class="font-bold text-black dark:text-white text-right">9:00 – 18:00</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 border-b border-zinc-100 dark:border-zinc-800 gap-3">
+                                    <span class="text-zinc-600 dark:text-zinc-400">Saturday</span>
+                                    <span class="font-bold text-black dark:text-white text-right">10:00 – 16:00</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 border-b border-zinc-100 dark:border-zinc-800 gap-3">
+                                    <span class="text-zinc-600 dark:text-zinc-400">Sunday</span>
+                                    <span class="font-bold text-brand-red text-right">Closed</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 gap-3">
+                                    <span class="text-zinc-600 dark:text-zinc-400">24/7 Emergency</span>
+                                    <span class="font-bold text-black dark:text-white text-right">Always Open</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Social Connect -->
+                        <div class="bg-brand-red p-5 sm:p-6 md:p-8 rounded-2xl text-white">
+                            <h3 class="text-base sm:text-lg font-bold mb-3 sm:mb-4">Follow Our Journeys</h3>
+                            <p class="text-sm text-red-100 mb-5 sm:mb-6">Daily inspiration, travel tips, and behind-the-scenes from our trips.</p>
+                            <div class="flex flex-wrap gap-2 sm:gap-3">
+                                <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white hover:text-brand-red flex items-center justify-center transition-all duration-300"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white hover:text-brand-red flex items-center justify-center transition-all duration-300"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white hover:text-brand-red flex items-center justify-center transition-all duration-300"><i class="fa-brands fa-youtube"></i></a>
+                                <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white hover:text-brand-red flex items-center justify-center transition-all duration-300"><i class="fa-brands fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FAQ SECTION ========== -->
+        <section class="py-14 sm:py-16 md:py-24 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="text-center mb-10 sm:mb-14">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Common Questions</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mt-2 text-black dark:text-white">Frequently Asked <span class="text-brand-red">Questions</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-5xl mx-auto">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">How far in advance should I book?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">For peak season (June–August, December), we recommend 3–6 months in advance. For off-season travel, 6–8 weeks is usually sufficient. Custom itineraries need more lead time.</p>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Do you offer custom itineraries?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">Absolutely — it's our specialty. Every itinerary we build is crafted from scratch around your interests, budget, and pace. No templates, ever.</p>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">What is your cancellation policy?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">Free cancellation up to 30 days before departure. 50% refund 15–29 days out. No refund within 14 days. We also offer flexible rebooking options.</p>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Do you handle group travel?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">Yes — family reunions, corporate retreats, friend groups, and destination weddings. We offer dedicated group coordinators and special rates for 8+ travelers.</p>
+                    </details>
+
+                    <!-- FAQ 5 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">Is travel insurance included?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">Basic insurance is included in all our packages. We also offer premium comprehensive coverage as an add-on, which we strongly recommend for international trips.</p>
+                    </details>
+
+                    <!-- FAQ 6 -->
+                    <details class="group bg-zinc-50 dark:bg-brand-dark border border-zinc-100 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 hover:border-brand-red/30 transition-all">
+                        <summary class="flex items-start justify-between cursor-pointer list-none gap-3">
+                            <span class="font-bold text-black dark:text-white text-sm sm:text-base">How do payments work?</span>
+                            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 group-open:bg-brand-red group-open:text-white transition-all">
+                                <i class="fa-solid fa-plus text-xs group-open:rotate-45 transition-transform"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">A 25% deposit secures your booking. The balance is due 45 days before departure. We accept all major cards, bank transfers, and offer interest-free installment plans.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CTA ========== -->
+        <section class="py-16 sm:py-20 relative overflow-hidden bg-brand-black">
+            <div class="absolute inset-0 w-full h-full">
+                <img src="assets/c2.avif" alt="Planes" class="w-full h-full object-cover opacity-20 grayscale">
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-transparent"></div>
+            </div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 sm:mb-6">Ready to <span class="text-brand-red">start planning?</span></h2>
+                <p class="text-sm sm:text-base md:text-lg text-zinc-400 mb-6 sm:mb-8 max-w-xl mx-auto">Our travel designers are just a message away. Tell us your dream and we'll make it real.</p>
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
+                    <a href="signup.html" class="px-6 sm:px-8 py-3.5 sm:py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 text-center text-sm sm:text-base">
+                        Book a Consultation
+                    </a>
+                    <a href="packages.html" class="px-6 sm:px-8 py-3.5 sm:py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl transition-all duration-300 text-center text-sm sm:text-base">
+                        Browse Packages
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. FOOTER -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- NAVBAR (Same as Home 1) ---
+            const navbarContainer = document.getElementById('navbar');
+            if (navbarContainer) {
+                navbarContainer.innerHTML = `
+                    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                        <div class="flex items-center justify-between h-16 md:h-20 gap-3">
+                            <!-- TravelSpark Logo -->
+                            <a href="index.html" class="flex items-center gap-2 sm:gap-3 shrink-0 group">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-brand-red rounded-2xl flex items-center justify-center shadow-lg shadow-brand-red/30 group-hover:scale-105 transition-transform">
+                                    <i class="fa-solid fa-plane text-white text-base sm:text-xl md:text-2xl"></i>
+                                </div>
+                                <div class="flex flex-col leading-tight">
+                                    <span class="text-base sm:text-xl md:text-2xl font-extrabold tracking-tight">
+                                        <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                    </span>
+                                    <span class="hidden sm:block text-[8px] md:text-[10px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                </div>
+                            </a>
+
+                            <!-- Desktop Nav -->
+                            <nav class="hidden xl:flex items-center gap-6 xl:gap-7 mx-auto">
+                                <!-- HOME DROPDOWN -->
+                                <div class="home-dropdown relative">
+                                    <button type="button" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center gap-1.5">
+                                        Home <i class="fa-solid fa-chevron-down text-[10px] home-chevron"></i>
+                                    </button>
+                                    <div class="home-dropdown-panel">
+                                        <a href="index.html" class="home-dropdown-item">Home 1</a>
+                                        <a href="home-2.html" class="home-dropdown-item">Home 2</a>
+                                    </div>
+                                </div>
+
+                                <a href="about.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">About</a>
+                                <a href="blog.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Journal</a>
+                                <a href="destinations.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Destinations</a>
+                                <a href="packages.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Packages</a>
+                                <a href="contact.html" class="nav-link text-sm font-semibold text-brand-red dark:text-brand-red transition-colors active">Contact</a>
+                                
+                                <!-- Dashboard Dropdown -->
+                                <div class="relative group dashboard-dropdown">
+                                    <button type="button" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center gap-1 dashboard-trigger">
+                                        Dashboard <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                                    </button>
+                                    <div class="dashboard-menu absolute top-full left-0 mt-2 w-44 bg-white dark:bg-brand-dark border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                        <a href="user.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-t-xl hover:text-brand-red">User</a>
+                                        <a href="admin.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-b-xl hover:text-brand-red">Admin</a>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            <!-- Right Side Actions -->
+                            <div class="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
+                                <button id="rtl-toggle" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" title="Toggle RTL">
+                                    <i class="fa-solid fa-right-left text-xs sm:text-sm"></i>
+                                </button>
+                                <button id="theme-toggle" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                    <i class="fa-solid fa-moon dark:hidden text-xs sm:text-sm"></i>
+                                    <i class="fa-solid fa-sun hidden dark:inline text-xs sm:text-sm"></i>
+                                </button>
+                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-all">
+                                    <i class="fa-solid fa-bars text-lg"></i>
+                                </button>
+                                <a href="login.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 border-2 border-brand-red text-brand-red text-sm font-bold rounded-xl hover:bg-brand-red hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-user"></i> Login
+                                </a>
+                                <a href="signup.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 bg-brand-black text-white text-sm font-bold rounded-xl hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20">
+                                    Sign Up
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Overlay -->
+                    <div id="mobile-menu" class="xl:hidden fixed inset-0 w-full h-screen bg-white dark:bg-brand-black z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 overflow-y-auto">
+                        <div class="px-5 sm:px-6 py-6 sm:py-8 flex flex-col gap-5">
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-3">Home</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="index.html" class="text-base text-zinc-600 dark:text-zinc-300 hover:text-brand-red transition-colors">Home 1</a>
+                                    <a href="home-2.html" class="text-base text-zinc-600 dark:text-zinc-300 hover:text-brand-red transition-colors">Home 2</a>
+                                </div>
+                            </div>
+
+                            <a href="about.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">About</a>
+                            <a href="blog.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Journal</a>
+                            <a href="destinations.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Destinations</a>
+                            <a href="packages.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Packages</a>
+                            <a href="contact.html" class="text-lg font-semibold text-brand-red border-b border-zinc-100 dark:border-zinc-800 pb-3">Contact</a>
+                            
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-base sm:text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-3">Dashboard</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="user.html" class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">User</a>
+                                    <a href="admin.html" class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">Admin</a>
+                                </div>
+                            </div>
+
+                            
+                            <!-- Mobile Theme & RTL Controls -->
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                                <p class="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">Preferences</p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button id="mobile-rtl-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-right-left text-brand-red"></i>
+                                        <span>RTL / LTR</span>
+                                    </button>
+                                    <button id="mobile-theme-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-moon dark:hidden text-brand-red"></i>
+                                        <i class="fa-solid fa-sun hidden dark:inline text-brand-red"></i>
+                                        <span class="dark:hidden">Dark</span>
+                                        <span class="hidden dark:inline">Light</span>
+                                    </button>
+                                </div>
+                            </div>
+<div class="flex flex-col gap-3 mt-2">
+                                <a href="login.html" class="w-full py-3 border-2 border-brand-red text-brand-red text-center font-bold rounded-xl hover:bg-brand-red hover:text-white transition-colors text-sm">Login</a>
+                                <a href="signup.html" class="w-full py-3 bg-brand-black text-white text-center font-bold rounded-xl hover:bg-zinc-800 transition-colors text-sm">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Home dropdown toggle for touch
+                const homeDropdown = document.querySelector('.home-dropdown');
+                const homeTrigger = homeDropdown ? homeDropdown.querySelector('button') : null;
+                if (homeTrigger && homeDropdown) {
+                    homeTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        homeDropdown.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e) {
+                        if (!homeDropdown.contains(e.target)) {
+                            homeDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Dashboard dropdown toggle for touch/click
+                const dashboardDropdown = document.querySelector('.dashboard-dropdown');
+                const dashboardTrigger = dashboardDropdown ? dashboardDropdown.querySelector('.dashboard-trigger') : null;
+                if (dashboardTrigger && dashboardDropdown) {
+                    dashboardTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dashboardDropdown.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e) {
+                        if (!dashboardDropdown.contains(e.target)) {
+                            dashboardDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Mobile menu toggle
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && navbarContainer && mobileMenu.parentElement === navbarContainer) {
+                    document.body.appendChild(mobileMenu);
+                }
+                if (mobileMenuBtn && mobileMenu) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        mobileMenu.classList.toggle('translate-x-full');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (mobileMenu.classList.contains('translate-x-full')) {
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        } else {
+                            if (icon) {
+                                icon.classList.remove('fa-bars');
+                                icon.classList.add('fa-times');
+                            }
+                            document.body.style.overflow = 'hidden';
+                        }
+                    });
+
+                    mobileMenu.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            mobileMenu.classList.add('translate-x-full');
+                            const icon = mobileMenuBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        });
+                    });
+                }
+
+                // Dark mode toggle
+                const themeToggle = document.getElementById('theme-toggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', function() {
+                        const isDark = document.documentElement.classList.toggle('dark');
+                        localStorage.setItem('travel-theme', isDark ? 'dark' : 'light');
+                        localStorage.setItem('travel-dark', isDark ? 'true' : 'false');
+                    });
+                }
+
+                // RTL Toggle
+                const rtlToggle = document.getElementById('rtl-toggle');
+                if (rtlToggle) {
+                    rtlToggle.addEventListener('click', function() {
+                        const html = document.documentElement;
+                        const currentDir = html.getAttribute('dir');
+                        const newDir = currentDir === 'rtl' ? 'ltr' : 'rtl';
+                        html.setAttribute('dir', newDir);
+                        localStorage.setItem('travel-rtl', newDir);
+                    });
+                }
+            }
+
+            // --- FOOTER (Same as Home 1) ---
+            const footerContainer = document.getElementById('footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = `
+                    <footer class="footer-bg border-t border-zinc-200 dark:border-zinc-800 pt-14 sm:pt-16 pb-6 sm:pb-8">
+                        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
+                                <div>
+                                    <a href="index.html" class="flex items-center gap-3 mb-4 group">
+                                        <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center shadow-lg shadow-brand-red/30">
+                                            <i class="fa-solid fa-plane text-white text-lg"></i>
+                                        </div>
+                                        <div class="flex flex-col leading-tight">
+                                            <span class="text-xl font-extrabold tracking-tight">
+                                                <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                            </span>
+                                            <span class="text-[8px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                        </div>
+                                    </a>
+                                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-5 sm:mb-6">Curating meaningful journeys since 2015. We believe travel should be personal, purposeful, and unforgettable.</p>
+                                    <div class="flex flex-wrap gap-3">
+                                        <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                                        <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-instagram text-sm"></i></a>
+                                        <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-youtube text-sm"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-base sm:text-lg font-bold mb-4 sm:mb-6 text-zinc-900 dark:text-white">Explore</h4>
+                                    <ul class="flex flex-col gap-2.5 sm:gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="about.html" class="hover:text-brand-red transition-colors">About Us</a></li>
+                                        <li><a href="packages.html" class="hover:text-brand-red transition-colors">Packages</a></li>
+                                        <li><a href="destinations.html" class="hover:text-brand-red transition-colors">Destinations</a></li>
+                                        <li><a href="blog.html" class="hover:text-brand-red transition-colors">Journal</a></li>
+                                        <li><a href="contact.html" class="hover:text-brand-red transition-colors">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-base sm:text-lg font-bold mb-4 sm:mb-6 text-zinc-900 dark:text-white">Support</h4>
+                                    <ul class="flex flex-col gap-2.5 sm:gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">FAQs</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Privacy Policy</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Terms of Service</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Cancellation Policy</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-base sm:text-lg font-bold mb-4 sm:mb-6 text-zinc-900 dark:text-white">Get in Touch</h4>
+                                    <ul class="flex flex-col gap-3 sm:gap-4 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fa-solid fa-location-dot text-brand-red mt-0.5 shrink-0"></i>
+                                            <span>45 Wanderlust Lane, Suite 12, Austin, TX 78701</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-phone text-brand-red shrink-0"></i>
+                                            <span>+1 (512) 555-0198</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-envelope text-brand-red shrink-0"></i>
+                                            <span class="break-all">hello@ignitetravel.com</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
+                                <p class="text-center sm:text-left">&copy; 2025 TravelSpark. All rights reserved.</p>
+                                <div class="flex gap-4 sm:gap-6">
+                                    <a href="#" class="hover:text-brand-red transition-colors">Privacy</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Terms</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Cookies</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

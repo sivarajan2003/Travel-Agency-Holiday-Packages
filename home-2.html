@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelSpark | Home 2 — Adventure Awaits</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon (online) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#dc2626',
+                            black: '#0a0a0a',
+                            dark: '#111111'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .img-hover-zoom { overflow: hidden; }
+        .img-hover-zoom img { transition: transform 0.7s ease; }
+        .img-hover-zoom:hover img { transform: scale(1.1); }
+        .nav-link.active { color: #dc2626; position: relative; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #dc2626;
+        }
+        /* ================= Comprehensive RTL Support ================= */
+        html[dir="rtl"] body {
+            direction: rtl;
+            text-align: right;
+        }
+        html[dir="rtl"] .text-left { text-align: right !important; }
+        html[dir="rtl"] .text-right { text-align: left !important; }
+
+        /* Margins & Paddings */
+        html[dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+        html[dir="rtl"] .mr-auto { margin-right: 0 !important; margin-left: auto !important; }
+        html[dir="rtl"] .ml-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+        html[dir="rtl"] .mr-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+        html[dir="rtl"] .ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+        html[dir="rtl"] .mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        html[dir="rtl"] .ml-3 { margin-left: 0 !important; margin-right: 0.75rem !important; }
+        html[dir="rtl"] .mr-3 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+        html[dir="rtl"] .ml-4 { margin-left: 0 !important; margin-right: 1rem !important; }
+        html[dir="rtl"] .mr-4 { margin-right: 0 !important; margin-left: 1rem !important; }
+
+        html[dir="rtl"] .pl-2 { padding-left: 0 !important; padding-right: 0.5rem !important; }
+        html[dir="rtl"] .pr-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+        html[dir="rtl"] .pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+        html[dir="rtl"] .pr-3 { padding-right: 0 !important; padding-left: 0.75rem !important; }
+        html[dir="rtl"] .pl-4 { padding-left: 0 !important; padding-right: 1rem !important; }
+        html[dir="rtl"] .pr-4 { padding-right: 0 !important; padding-left: 1rem !important; }
+        html[dir="rtl"] .pl-6 { padding-left: 0 !important; padding-right: 1.5rem !important; }
+        html[dir="rtl"] .pr-6 { padding-right: 0 !important; padding-left: 1.5rem !important; }
+
+        /* Left/Right Absolute Positions */
+        html[dir="rtl"] .left-0 { left: auto !important; right: 0 !important; }
+        html[dir="rtl"] .right-0 { right: auto !important; left: 0 !important; }
+        html[dir="rtl"] .left-3 { left: auto !important; right: 0.75rem !important; }
+        html[dir="rtl"] .right-3 { right: auto !important; left: 0.75rem !important; }
+        html[dir="rtl"] .left-4 { left: auto !important; right: 1rem !important; }
+        html[dir="rtl"] .right-4 { right: auto !important; left: 1rem !important; }
+        html[dir="rtl"] .left-6 { left: auto !important; right: 1.5rem !important; }
+        html[dir="rtl"] .right-6 { right: auto !important; left: 1.5rem !important; }
+
+        /* Borders */
+        html[dir="rtl"] .border-r { border-right-width: 0 !important; border-left-width: 1px !important; }
+        html[dir="rtl"] .border-l { border-left-width: 0 !important; border-right-width: 1px !important; }
+
+        /* Icons & Transforms */
+        html[dir="rtl"] .fa-arrow-right:before { content: "\f060"; }
+        html[dir="rtl"] .fa-arrow-left:before { content: "\f061"; }
+        html[dir="rtl"] .fa-chevron-right:before { content: "\f053"; }
+        html[dir="rtl"] .fa-chevron-left:before { content: "\f054"; }
+        html[dir="rtl"] .fa-arrow-right-from-bracket:before { content: "\f08b"; }
+        html[dir="rtl"] .group-hover\:translate-x-1:hover i { transform: translateX(-0.25rem); }
+
+        /* Dropdown Alignment */
+        html[dir="rtl"] .dashboard-menu {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        /* Nav active line */
+        html[dir="rtl"] .nav-link.active::after {
+            left: auto;
+            right: 0;
+        }
+
+        /* Space-x reverse */
+        html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]),
+        html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+        /* Footer background matches navbar */
+        .footer-bg {
+            background-color: #ffffff;
+        }
+        .dark .footer-bg {
+            background-color: #0a0a0a;
+        }
+
+        /* ===== HOME DROPDOWN ===== */
+        .home-dropdown {
+            position: relative;
+        }
+        .home-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            min-width: 180px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .dark .home-dropdown-panel {
+            background: #111111;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .home-dropdown:hover .home-dropdown-panel,
+        .home-dropdown.open .home-dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .home-dropdown:hover .home-chevron,
+        .home-dropdown.open .home-chevron {
+            transform: rotate(180deg);
+        }
+        .home-chevron {
+            transition: transform 0.25s ease;
+        }
+        .home-dropdown-item {
+            display: block;
+            padding: 0.65rem 1.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .dark .home-dropdown-item {
+            color: #cbd5e1;
+        }
+        .home-dropdown-item:hover {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        .dark .home-dropdown-item:hover {
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+        .home-dropdown-item.highlight-red {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .home-dropdown-item.highlight-red:hover {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+        .dark .home-dropdown-item.highlight-red:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: #f87171;
+        }
+    </style>
+<script>
+    (function() {
+        var theme = localStorage.getItem("travel-theme") || (localStorage.getItem("travel-dark") === "true" ? "dark" : (localStorage.getItem("travel-dark") === "false" ? "light" : null));
+        if (theme === "dark" || (!theme && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        var rtl = localStorage.getItem("travel-rtl");
+        if (rtl === "rtl") {
+            document.documentElement.setAttribute("dir", "rtl");
+        } else {
+            document.documentElement.setAttribute("dir", "ltr");
+        }
+    })();
+</script>
+<style>
+    html[dir="rtl"] #mobile-menu.translate-x-full {
+        transform: translateX(-100%) !important;
+    }
+    html[dir="rtl"] #mobile-menu:not(.translate-x-full) {
+        transform: translateX(0) !important;
+    }
+</style>
+</head>
+<body class="bg-white dark:bg-brand-black text-zinc-900 dark:text-white antialiased flex flex-col min-h-screen">
+
+    <!-- 1. HEADER (Dynamic navbar) -->
+    <header id="navbar" class="fixed w-full z-50 bg-white/90 dark:bg-brand-black/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+        <!-- Navbar injected by JS -->
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20 md:pt-24">
+
+        <!-- ============================================================ -->
+        <!-- HERO SECTION — HOME 2 (Same dimensions as Index) -->
+        <!-- ============================================================ -->
+        <section class="relative w-full min-h-[500px] h-auto md:min-h-[85vh] py-16 sm:py-20 flex items-center justify-center bg-brand-black overflow-hidden">
+            <div class="absolute inset-0 w-full h-full">
+                  <img src="assets/h21.avif" alt="Adventure" class="w-full h-full object-cover opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-80"></div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 text-center flex flex-col items-center pb-6 sm:pb-8">
+                <span class="inline-flex items-center gap-2 text-brand-red font-bold tracking-[0.2em] uppercase text-xs sm:text-sm mb-2 sm:mb-4">
+                    <span class="w-6 h-[2px] bg-brand-red inline-block"></span>
+                    <!-- Home 2 — Bold Edition -->
+                    <span class="w-6 h-[2px] bg-brand-red inline-block"></span>
+                </span>
+                <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight drop-shadow-2xl">
+                    Go <span class="text-brand-red">Further.</span> Feel <span class="text-brand-red">More.</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-zinc-300 mb-5 sm:mb-12 font-medium max-w-2xl drop-shadow-md">
+                    This is the alternate home experience — a bold, minimal, adventure-first design. Every journey is a story. Let's write yours.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-rocket"></i> Start Your Adventure
+                    </a>
+                    <a href="contact.html" class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-comments"></i> Talk to an Expert
+                    </a>
+                </div>
+
+                <!-- Stats Strip -->
+                <div class="grid grid-cols-3 gap-6 sm:gap-12 mt-10 sm:mt-14 w-full max-w-2xl">
+                    <div class="text-center">
+                        <p class="text-2xl sm:text-4xl font-extrabold text-white">60+</p>
+                        <p class="text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400 mt-1">Countries</p>
+                    </div>
+                    <div class="text-center border-x border-zinc-800">
+                        <p class="text-2xl sm:text-4xl font-extrabold text-white">30K+</p>
+                        <p class="text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400 mt-1">Trips</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl sm:text-4xl font-extrabold text-white">98%</p>
+                        <p class="text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400 mt-1">Repeat</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 1: THREE PILLARS OF HOME 2 -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Why Home 2</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-4">Built for <span class="text-brand-red">Explorers</span></h2>
+                    <p class="text-zinc-500 dark:text-zinc-400">A fresh design philosophy focused on speed, security, and global reach.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-black dark:text-white min-h-[3.5rem] flex items-center justify-center leading-snug">Lightning Fast</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">Book your next adventure in under 60 seconds with our streamlined checkout experience.</p>
+                    </div>
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-black dark:text-white min-h-[3.5rem] flex items-center justify-center leading-snug">Total Protection</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">Flexible cancellation and a full refund guarantee on every booking, no questions asked.</p>
+                    </div>
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 text-center hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="w-16 h-16 mx-auto bg-red-50 dark:bg-red-950/40 rounded-2xl flex items-center justify-center mb-6 text-brand-red text-2xl shrink-0">
+                            <i class="fa-solid fa-earth-americas"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-black dark:text-white min-h-[3.5rem] flex items-center justify-center leading-snug">Global Reach</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 flex-1 flex items-start justify-center leading-relaxed">Access exclusive destinations across 60+ countries worldwide with local expert guides.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: ADVENTURE CATEGORIES -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-zinc-50 dark:bg-brand-dark transition-colors border-y border-zinc-200 dark:border-zinc-900">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div>
+                        <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Pick your vibe</span>
+                        <h2 class="text-3xl md:text-5xl font-bold mt-2">Adventure <span class="text-brand-red">Categories</span></h2>
+                    </div>
+                    <a href="destinations.html" class="flex items-center gap-2 font-bold text-sm text-black dark:text-white hover:text-brand-red dark:hover:text-brand-red transition-colors group">
+                        View All <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Category 1: Mountain -->
+                    <a href="destinations.html" class="group relative h-80 rounded-2xl img-hover-zoom">
+                        <img src="assets/h22.avif" alt="Mountain" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <i class="fa-solid fa-mountain-sun text-brand-red text-2xl mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1 group-hover:text-brand-red transition-colors">Mountain Treks</h3>
+                            <p class="text-xs text-zinc-300">14 destinations</p>
+                        </div>
+                    </a>
+                    <!-- Category 2: Beach -->
+                    <a href="destinations.html" class="group relative h-80 rounded-2xl img-hover-zoom">
+                        <img src="assets/h23.avif" alt="Beach" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <i class="fa-solid fa-umbrella-beach text-brand-red text-2xl mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1 group-hover:text-brand-red transition-colors">Beach Escapes</h3>
+                            <p class="text-xs text-zinc-300">22 destinations</p>
+                        </div>
+                    </a>
+                    <!-- Category 3: Safari -->
+                    <a href="destinations.html" class="group relative h-80 rounded-2xl img-hover-zoom">
+                        <img src="assets/h24.avif" alt="Safari" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <i class="fa-solid fa-paw text-brand-red text-2xl mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1 group-hover:text-brand-red transition-colors">Wild Safaris</h3>
+                            <p class="text-xs text-zinc-300">8 destinations</p>
+                        </div>
+                    </a>
+                    <!-- Category 4: City -->
+                    <a href="destinations.html" class="group relative h-80 rounded-2xl img-hover-zoom">
+                        <img src="assets/h25.avif" alt="City" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <i class="fa-solid fa-city text-brand-red text-2xl mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1 group-hover:text-brand-red transition-colors">City Breaks</h3>
+                            <p class="text-xs text-zinc-300">18 destinations</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: FEATURED ADVENTURES -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-white dark:bg-brand-black transition-colors">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="text-center mb-16">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Featured adventures</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mt-2">Our <span class="text-brand-red">Top Picks</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
+                    <!-- Adventure 1 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-56 relative overflow-hidden shrink-0">
+                            <img src="assets/h26.avif" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Iceland Trek">
+                            <div class="absolute top-4 left-4 bg-brand-red text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                                EXTREME
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 justify-between">
+                            <div class="flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-black dark:text-white mb-2 min-h-[3.5rem] flex items-start leading-snug">Icelandic Ice Caves</h3>
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2 min-h-[2.5rem]">Descend into crystal blue ice caves and witness nature's most surreal formations.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-4 mt-auto">
+                                <p class="text-brand-red font-bold text-lg">$2,150</p>
+                                <a href="packages.html" class="text-sm font-bold text-black dark:text-white hover:text-brand-red transition-colors flex items-center gap-1">Explore <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adventure 2 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-56 relative overflow-hidden shrink-0">
+                            <img src="assets/h24.avif" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Kenya Safari">
+                            <div class="absolute top-4 left-4 bg-black text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                                WILDLIFE
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 justify-between">
+                            <div class="flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-black dark:text-white mb-2 min-h-[3.5rem] flex items-start leading-snug">Kenya Safari Expedition</h3>
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2 min-h-[2.5rem]">Track the Big Five across the Maasai Mara with expert local guides.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-4 mt-auto">
+                                <p class="text-brand-red font-bold text-lg">$3,400</p>
+                                <a href="packages.html" class="text-sm font-bold text-black dark:text-white hover:text-brand-red transition-colors flex items-center gap-1">Explore <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adventure 3 -->
+                    <div class="bg-zinc-50 dark:bg-brand-dark rounded-2xl overflow-hidden shadow-lg border border-zinc-100 dark:border-zinc-800 group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
+                        <div class="h-56 relative overflow-hidden shrink-0">
+                            <img src="assets/h27.avif" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Amalfi">
+                            <div class="absolute top-4 left-4 bg-brand-red text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                                ROMANTIC
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 justify-between">
+                            <div class="flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-black dark:text-white mb-2 min-h-[3.5rem] flex items-start leading-snug">Amalfi Coastal Drive</h3>
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2 min-h-[2.5rem]">Cruise along Italy's most iconic coastline with stops at hidden cliffside villages.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-4 mt-auto">
+                                <p class="text-brand-red font-bold text-lg">$2,800</p>
+                                <a href="packages.html" class="text-sm font-bold text-black dark:text-white hover:text-brand-red transition-colors flex items-center gap-1">Explore <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: TESTIMONIAL SPOTLIGHT -->
+        <!-- ============================================================ -->
+        <section class="py-24 bg-zinc-50 dark:bg-brand-dark transition-colors border-y border-zinc-200 dark:border-zinc-900">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <i class="fa-solid fa-quote-left text-6xl text-brand-red/20 mb-6"></i>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-bold text-black dark:text-white leading-snug mb-8">
+                        "Home 2 completely changed how I think about travel booking. It's bold, intuitive, and just <span class="text-brand-red">feels different</span> — in the best way."
+                    </p>
+                    <div class="flex items-center justify-center gap-4">
+                        <img src="assets/am4.avif" alt="User" class="w-14 h-14 rounded-full object-cover border-2 border-brand-red">
+                        <div class="text-left">
+                            <h4 class="font-bold text-black dark:text-white">Elena Rodriguez</h4>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-400">Solo Traveler · 18 Countries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 5: NEWSLETTER CTA -->
+        <!-- ============================================================ -->
+        <section class="py-24 relative overflow-hidden bg-brand-black">
+            <div class="absolute inset-0 w-full h-full">
+                <img src="assets/h29.avif" alt="Adventure" class="w-full h-full object-cover opacity-15 grayscale">
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/95 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-10">
+                <div class="max-w-2xl">
+                    <span class="text-brand-red font-bold tracking-widest uppercase text-xs">Stay in the loop</span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mt-3 mb-6 leading-tight">Get Adventure Deals <span class="text-brand-red">Before Anyone Else</span></h2>
+                    <p class="text-lg text-zinc-400 mb-8 font-medium">Join 30,000+ explorers who receive our weekly dispatch of secret spots, flash deals, and insider tips.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-3 max-w-lg">
+                        <input type="email" placeholder="Your email address" class="flex-1 px-5 py-4 bg-zinc-900 border border-zinc-800 rounded-xl focus:outline-none focus:border-brand-red transition-colors text-sm text-white placeholder:text-zinc-500">
+                        <button type="button" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. FOOTER -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- NAVBAR (Same as Index) ---
+            const navbarContainer = document.getElementById('navbar');
+            if (navbarContainer) {
+                navbarContainer.innerHTML = `
+                    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+                        <div class="flex items-center justify-between h-16 md:h-20">
+                            <!-- TravelSpark Logo -->
+                            <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+                                <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-red rounded-2xl flex items-center justify-center shadow-lg shadow-brand-red/30 group-hover:scale-105 transition-transform">
+                                    <i class="fa-solid fa-plane text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <div class="flex flex-col leading-tight">
+                                    <span class="text-xl md:text-2xl font-extrabold tracking-tight">
+                                        <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                    </span>
+                                    <span class="text-[9px] md:text-[10px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                </div>
+                            </a>
+
+                            <!-- Desktop Nav -->
+                            <nav class="hidden xl:flex items-center gap-7 mx-auto">
+                                <!-- ===== HOME DROPDOWN ===== -->
+                                <div class="home-dropdown relative">
+                                    <button type="button" class="nav-link text-sm font-semibold text-brand-red hover:text-brand-red transition-colors active flex items-center gap-1.5">
+                                        Home <i class="fa-solid fa-chevron-down text-[10px] home-chevron text-brand-red"></i>
+                                    </button>
+                                    <div class="home-dropdown-panel">
+                                        <a href="index.html" class="home-dropdown-item">Home 1</a>
+                                        <a href="home-2.html" class="home-dropdown-item highlight-red">Home 2</a>
+                                    </div>
+                                </div>
+
+                                <a href="about.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">About</a>
+                                <a href="blog.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Journal</a>
+                                <a href="destinations.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Destinations</a>
+                                <a href="packages.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Packages</a>
+                                <a href="contact.html" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors">Contact</a>
+                                
+                                <!-- Dashboard Dropdown -->
+                                <div class="relative group dashboard-dropdown">
+                                    <button type="button" class="nav-link text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center gap-1 dashboard-trigger">
+                                        Dashboard <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                                    </button>
+                                    <div class="dashboard-menu absolute top-full left-0 mt-2 w-44 bg-white dark:bg-brand-dark border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                        <a href="user.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-t-xl hover:text-brand-red">User</a>
+                                        <a href="admin.html" class="block px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-b-xl hover:text-brand-red">Admin</a>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            <!-- Right Side Actions -->
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <button id="rtl-toggle" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" title="Toggle RTL">
+                                    <i class="fa-solid fa-right-left"></i>
+                                </button>
+                                <button id="theme-toggle" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 hidden xl:flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                    <i class="fa-solid fa-moon dark:hidden"></i>
+                                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                                </button>
+                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-all">
+                                    <i class="fa-solid fa-bars text-lg"></i>
+                                </button>
+                                <a href="login.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 border-2 border-brand-red text-brand-red text-sm font-bold rounded-xl hover:bg-brand-red hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-user"></i> Login
+                                </a>
+                                <a href="signup.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 bg-brand-black text-white text-sm font-bold rounded-xl hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20">
+                                    Sign Up
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Overlay -->
+                    <div id="mobile-menu" class="xl:hidden fixed inset-0 w-full h-screen bg-white dark:bg-brand-black z-40 transform translate-x-full transition-transform duration-300 ease-in-out pt-20 overflow-y-auto">
+                        <div class="px-6 py-8 flex flex-col gap-6">
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-lg font-semibold text-brand-red mb-3">Home</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="index.html" class="text-base text-zinc-600 dark:text-zinc-300 hover:text-brand-red transition-colors">Home 1</a>
+                                    <a href="home-2.html" class="text-base text-brand-red font-semibold">Home 2</a>
+                                </div>
+                            </div>
+
+                            <a href="about.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">About</a>
+                            <a href="blog.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Journal</a>
+                            <a href="destinations.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Destinations</a>
+                            <a href="packages.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Packages</a>
+                            <a href="contact.html" class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-800 pb-3">Contact</a>
+                            
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <p class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-3">Dashboard</p>
+                                <div class="flex flex-col gap-3 pl-4">
+                                    <a href="user.html" class="text-base text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">User</a>
+                                    <a href="admin.html" class="text-base text-zinc-500 dark:text-zinc-400 hover:text-brand-red transition-colors">Admin</a>
+                                </div>
+                            </div>
+
+                            
+                            <!-- Mobile Theme & RTL Controls -->
+                            <div class="border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                                <p class="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">Preferences</p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button id="mobile-rtl-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-right-left text-brand-red"></i>
+                                        <span>RTL / LTR</span>
+                                    </button>
+                                    <button id="mobile-theme-toggle" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-brand-red transition-colors text-sm font-semibold">
+                                        <i class="fa-solid fa-moon dark:hidden text-brand-red"></i>
+                                        <i class="fa-solid fa-sun hidden dark:inline text-brand-red"></i>
+                                        <span class="dark:hidden">Dark</span>
+                                        <span class="hidden dark:inline">Light</span>
+                                    </button>
+                                </div>
+                            </div>
+<div class="flex flex-col gap-4 mt-4">
+                                <a href="login.html" class="w-full py-3 border-2 border-brand-red text-brand-red text-center font-bold rounded-xl hover:bg-brand-red hover:text-white transition-colors">Login</a>
+                                <a href="signup.html" class="w-full py-3 bg-brand-black text-white text-center font-bold rounded-xl hover:bg-zinc-800 transition-colors">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Home dropdown toggle
+                const homeDropdown = document.querySelector('.home-dropdown');
+                const homeTrigger = homeDropdown ? homeDropdown.querySelector('button') : null;
+
+                if (homeTrigger && homeDropdown) {
+                    homeTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        homeDropdown.classList.toggle('open');
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        if (!homeDropdown.contains(e.target)) {
+                            homeDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Dashboard dropdown toggle
+                const dashboardDropdown = document.querySelector('.dashboard-dropdown');
+                const dashboardTrigger = dashboardDropdown ? dashboardDropdown.querySelector('.dashboard-trigger') : null;
+
+                if (dashboardTrigger && dashboardDropdown) {
+                    dashboardTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dashboardDropdown.classList.toggle('open');
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        if (!dashboardDropdown.contains(e.target)) {
+                            dashboardDropdown.classList.remove('open');
+                        }
+                    });
+                }
+
+                // Mobile menu toggle
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && navbarContainer && mobileMenu.parentElement === navbarContainer) {
+                    document.body.appendChild(mobileMenu);
+                }
+                if (mobileMenuBtn && mobileMenu) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        mobileMenu.classList.toggle('translate-x-full');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (mobileMenu.classList.contains('translate-x-full')) {
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        } else {
+                            if (icon) {
+                                icon.classList.remove('fa-bars');
+                                icon.classList.add('fa-times');
+                            }
+                            document.body.style.overflow = 'hidden';
+                        }
+                    });
+
+                    mobileMenu.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            mobileMenu.classList.add('translate-x-full');
+                            const icon = mobileMenuBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.remove('fa-times');
+                                icon.classList.add('fa-bars');
+                            }
+                            document.body.style.overflow = '';
+                        });
+                    });
+                }
+
+                // Dark mode toggle (desktop & mobile inside hamburger)
+                const themeToggle = document.getElementById('theme-toggle');
+                const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+                function handleThemeToggle() {
+                    const isDark = document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('travel-theme', isDark ? 'dark' : 'light');
+                    localStorage.setItem('travel-dark', isDark ? 'true' : 'false');
+                }
+                if (themeToggle) themeToggle.addEventListener('click', handleThemeToggle);
+                if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', handleThemeToggle);
+
+                // RTL Toggle (desktop & mobile inside hamburger)
+                const rtlToggle = document.getElementById('rtl-toggle');
+                const mobileRtlToggle = document.getElementById('mobile-rtl-toggle');
+                function handleRtlToggle() {
+                    const html = document.documentElement;
+                    const currentDir = html.getAttribute('dir');
+                    const newDir = currentDir === 'rtl' ? 'ltr' : 'rtl';
+                    html.setAttribute('dir', newDir);
+                    localStorage.setItem('travel-rtl', newDir);
+                }
+                if (rtlToggle) rtlToggle.addEventListener('click', handleRtlToggle);
+                if (mobileRtlToggle) mobileRtlToggle.addEventListener('click', handleRtlToggle);
+
+                // Active link highlighting
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentPage) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- FOOTER (Same as Index) ---
+            const footerContainer = document.getElementById('footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = `
+                    <footer class="footer-bg border-t border-zinc-200 dark:border-zinc-800 pt-16 pb-8">
+                        <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                                <div>
+                                    <a href="index.html" class="flex items-center gap-3 mb-4 group">
+                                        <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center shadow-lg shadow-brand-red/30">
+                                            <i class="fa-solid fa-plane text-white text-lg"></i>
+                                        </div>
+                                        <div class="flex flex-col leading-tight">
+                                            <span class="text-xl font-extrabold tracking-tight">
+                                                <span class="text-brand-red">Ignite</span><span class="text-zinc-900 dark:text-white">Travel</span>
+                                            </span>
+                                            <span class="text-[8px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-500 uppercase">Holiday Packages</span>
+                                        </div>
+                                    </a>
+                                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6">Curating meaningful journeys since 2015. We believe travel should be personal, purposeful, and unforgettable.</p>
+                                    <div class="flex gap-4">
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all"><i class="fa-brands fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Explore</h4>
+                                    <ul class="flex flex-col gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="about.html" class="hover:text-brand-red transition-colors">About Us</a></li>
+                                        <li><a href="packages.html" class="hover:text-brand-red transition-colors">Packages</a></li>
+                                        <li><a href="destinations.html" class="hover:text-brand-red transition-colors">Destinations</a></li>
+                                        <li><a href="blog.html" class="hover:text-brand-red transition-colors">Journal</a></li>
+                                        <li><a href="contact.html" class="hover:text-brand-red transition-colors">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Support</h4>
+                                    <ul class="flex flex-col gap-3 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">FAQs</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Privacy Policy</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Terms of Service</a></li>
+                                        <li><a href="#" class="hover:text-brand-red transition-colors">Cancellation Policy</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white">Get in Touch</h4>
+                                    <ul class="flex flex-col gap-4 text-zinc-500 dark:text-zinc-400 text-sm">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fa-solid fa-location-dot text-brand-red mt-0.5"></i>
+                                            <span>45 Wanderlust Lane, Suite 12, Austin, TX 78701</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-phone text-brand-red"></i>
+                                            <span>+1 (512) 555-0198</span>
+                                        </li>
+                                        <li class="flex items-center gap-3">
+                                            <i class="fa-solid fa-envelope text-brand-red"></i>
+                                            <span>hello@ignitetravel.com</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+                                <p>&copy; 2025 TravelSpark. All rights reserved.</p>
+                                <div class="flex gap-6">
+                                    <a href="#" class="hover:text-brand-red transition-colors">Privacy</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Terms</a>
+                                    <a href="#" class="hover:text-brand-red transition-colors">Cookies</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
