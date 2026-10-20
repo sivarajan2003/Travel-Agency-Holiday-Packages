@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelSpark | Exclusive Holiday Packages & Travel</title>
+    <title>IgniteTravel | Exclusive Holiday Packages & Travel</title>
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
                     },
                     colors: {
                         brand: {
-                            red: '#dc2626',
+                            red: '#e11d48', /* Updated to a related premium Rose Red */
                             black: '#0a0a0a',
                             dark: '#111111'
                         }
@@ -43,7 +43,7 @@
         .img-hover-zoom { overflow: hidden; }
         .img-hover-zoom img { transition: transform 0.7s ease; }
         .img-hover-zoom:hover img { transform: scale(1.1); }
-        .nav-link.active { color: #dc2626; position: relative; }
+        .nav-link.active { color: #e11d48; position: relative; }
         .nav-link.active::after {
             content: '';
             position: absolute;
@@ -51,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background-color: #dc2626;
+            background-color: #e11d48;
         }
         /* ================= Comprehensive RTL Support ================= */
         html[dir="rtl"] body {
@@ -193,16 +193,16 @@
             color: #ffffff;
         }
         .home-dropdown-item.highlight-red {
-            color: #dc2626;
+            color: #e11d48;
             font-weight: 600;
         }
         .home-dropdown-item.highlight-red:hover {
-            background: #fef2f2;
-            color: #b91c1c;
+            background: #fff1f2;
+            color: #be123c;
         }
         .dark .home-dropdown-item.highlight-red:hover {
-            background: rgba(220, 38, 38, 0.1);
-            color: #f87171;
+            background: rgba(225, 29, 72, 0.1);
+            color: #fb7185;
         }
 
         /* ===== NEW HERO CATEGORY CARDS ===== */
@@ -212,8 +212,8 @@
         }
         .hero-category-card:hover {
             transform: translateY(-8px);
-            background: rgba(220, 38, 38, 0.15);
-            border-color: rgba(220, 38, 38, 0.4);
+            background: rgba(225, 29, 72, 0.15);
+            border-color: rgba(225, 29, 72, 0.4);
         }
     </style>
 <script>
@@ -280,7 +280,7 @@
 
                 <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-full shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-full shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
                         <i class="fa-solid fa-compass"></i> Find Packages
                     </a>
                     <a href="destinations.html" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold rounded-full transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base">
@@ -485,7 +485,7 @@
                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                     <span class="text-zinc-500 ml-2 font-medium">(37)</span>
                                 </div>
-                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-[#be123c] transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
                             </div>
                         </div>
                     </div>
@@ -513,7 +513,7 @@
                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                                     <span class="text-zinc-500 ml-2 font-medium">(92)</span>
                                 </div>
-                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-[#be123c] transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
                             </div>
                         </div>
                     </div>
@@ -544,7 +544,7 @@
                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                     <span class="text-zinc-500 ml-2 font-medium">(64)</span>
                                 </div>
-                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                                <a href="packages.html" class="px-5 py-2 bg-brand-red text-white text-sm font-bold rounded-lg hover:bg-[#be123c] transition-colors shadow-sm shadow-brand-red/20 flex items-center gap-1.5 shrink-0">Book <i class="fa-solid fa-arrow-right text-xs"></i></a>
                             </div>
                         </div>
                     </div>
@@ -557,7 +557,7 @@
             <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
                 <div class="text-center mb-16 max-w-3xl mx-auto">
                     <span class="text-brand-red font-bold tracking-widest uppercase text-xs">The difference</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Why Book With TravelSpark?</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Why Book With IgniteTravel?</h2>
                     <p class="text-zinc-400">We combine local expertise with meticulous planning so you can focus on the experience.</p>
                 </div>
 
@@ -612,7 +612,7 @@
                             <div class="flex text-brand-red text-sm mb-4">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
-                            <p class="text-zinc-600 dark:text-zinc-300 italic mb-6 md:mb-8 leading-relaxed flex-1">"TravelSpark planned our honeymoon in Japan down to the minute — but it never felt rigid. Every recommendation was spot on."</p>
+                            <p class="text-zinc-600 dark:text-zinc-300 italic mb-6 md:mb-8 leading-relaxed flex-1">"IgniteTravel planned our honeymoon in Japan down to the minute — but it never felt rigid. Every recommendation was spot on."</p>
                         </div>
                         <div class="flex items-center gap-4 mt-auto pt-2">
                              <img src="assets/hp1.avif" alt="User" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shrink-0">
@@ -625,7 +625,7 @@
                     
                     <!-- Review 2 -->
                     <div class="bg-brand-red p-6 md:p-8 rounded-2xl shadow-xl shadow-brand-red/20 text-white relative flex flex-col justify-between h-full">
-                        <i class="fa-solid fa-quote-right absolute top-6 right-6 md:right-8 text-4xl text-red-800/50"></i>
+                        <i class="fa-solid fa-quote-right absolute top-6 right-6 md:right-8 text-4xl text-white/20"></i>
                         <div class="flex-1 flex flex-col">
                             <div class="flex text-white text-sm mb-4">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -636,7 +636,7 @@
                           <img src="assets/hp2.avif" alt="User" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-white shrink-0">
                             <div>
                                 <h4 class="font-bold text-sm">David Chen</h4>
-                                <p class="text-xs text-red-200">Patagonia Trek</p>
+                                <p class="text-xs text-white/80">Patagonia Trek</p>
                             </div>
                         </div>
                     </div>
@@ -674,7 +674,7 @@
                     <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Your Journey <span class="text-brand-red">Starts Here</span></h2>
                     <p class="text-lg text-zinc-400 mb-8 font-medium">Let's design an itinerary that feels like it was made just for you — because it will be.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <a href="signup.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-transform duration-300 hover:-translate-y-1 text-center">
+                        <a href="signup.html" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-transform duration-300 hover:-translate-y-1 text-center">
                             Start Planning
                         </a>
                         <a href="contact.html" class="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl transition-all duration-300 text-center">
@@ -702,7 +702,7 @@
                 navbarContainer.innerHTML = `
                     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
                         <div class="flex items-center justify-between h-16 md:h-20">
-                            <!-- TravelSpark Logo -->
+                            <!-- IgniteTravel Logo -->
                             <a href="index.html" class="flex items-center gap-3 shrink-0 group">
                                 <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-red rounded-2xl flex items-center justify-center shadow-lg shadow-brand-red/30 group-hover:scale-105 transition-transform">
                                     <i class="fa-solid fa-plane text-white text-xl md:text-2xl"></i>
@@ -757,7 +757,7 @@
                                     <i class="fa-solid fa-moon dark:hidden"></i>
                                     <i class="fa-solid fa-sun hidden dark:inline"></i>
                                 </button>
-                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-all">
+                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-[#be123c] transition-all">
                                     <i class="fa-solid fa-bars text-lg"></i>
                                 </button>
                                 <!-- Login / Sign Up (desktop) -->
@@ -1001,7 +1001,7 @@
                                 </div>
                             </div>
                             <div class="border-t border-zinc-200 dark:border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-                                <p>&copy; 2025 TravelSpark. All rights reserved.</p>
+                                <p>&copy; 2025 IgniteTravel. All rights reserved.</p>
                                 <div class="flex gap-6">
                                     <a href="#" class="hover:text-brand-red transition-colors">Privacy</a>
                                     <a href="#" class="hover:text-brand-red transition-colors">Terms</a>

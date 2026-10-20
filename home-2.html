@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelSpark | Home 2 — Adventure Awaits</title>
+    <title>IgniteTravel | Home 2 — Adventure Awaits</title>
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
                     },
                     colors: {
                         brand: {
-                            red: '#dc2626',
+                            red: '#e11d48', /* Updated to Rose Red */
                             black: '#0a0a0a',
                             dark: '#111111'
                         }
@@ -43,7 +43,7 @@
         .img-hover-zoom { overflow: hidden; }
         .img-hover-zoom img { transition: transform 0.7s ease; }
         .img-hover-zoom:hover img { transform: scale(1.1); }
-        .nav-link.active { color: #dc2626; position: relative; }
+        .nav-link.active { color: #e11d48; position: relative; }
         .nav-link.active::after {
             content: '';
             position: absolute;
@@ -51,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background-color: #dc2626;
+            background-color: #e11d48;
         }
         /* ================= Comprehensive RTL Support ================= */
         html[dir="rtl"] body {
@@ -193,16 +193,16 @@
             color: #ffffff;
         }
         .home-dropdown-item.highlight-red {
-            color: #dc2626;
+            color: #e11d48;
             font-weight: 600;
         }
         .home-dropdown-item.highlight-red:hover {
-            background: #fef2f2;
-            color: #b91c1c;
+            background: #fff1f2;
+            color: #be123c;
         }
         .dark .home-dropdown-item.highlight-red:hover {
-            background: rgba(220, 38, 38, 0.1);
-            color: #f87171;
+            background: rgba(225, 29, 72, 0.1);
+            color: #fb7185;
         }
     </style>
 <script>
@@ -241,7 +241,7 @@
     <main class="flex-grow pt-20 md:pt-24">
 
         <!-- ============================================================ -->
-        <!-- HERO SECTION — HOME 2 (Same dimensions as Index) -->
+        <!-- HERO SECTION — HOME 2 -->
         <!-- ============================================================ -->
         <section class="relative w-full min-h-[500px] h-auto md:min-h-[85vh] py-16 sm:py-20 flex items-center justify-center bg-brand-black overflow-hidden">
             <div class="absolute inset-0 w-full h-full">
@@ -263,7 +263,7 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm">
+                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-rocket"></i> Start Your Adventure
                     </a>
                     <a href="contact.html" class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm">
@@ -498,7 +498,7 @@
                     
                     <form class="flex flex-col sm:flex-row gap-3 max-w-lg">
                         <input type="email" placeholder="Your email address" class="flex-1 px-5 py-4 bg-zinc-900 border border-zinc-800 rounded-xl focus:outline-none focus:border-brand-red transition-colors text-sm text-white placeholder:text-zinc-500">
-                        <button type="button" class="px-8 py-4 bg-brand-red hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 whitespace-nowrap">
+                        <button type="button" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 whitespace-nowrap">
                             Subscribe
                         </button>
                     </form>
@@ -520,7 +520,7 @@
                 navbarContainer.innerHTML = `
                     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
                         <div class="flex items-center justify-between h-16 md:h-20">
-                            <!-- TravelSpark Logo -->
+                            <!-- IgniteTravel Logo -->
                             <a href="index.html" class="flex items-center gap-3 shrink-0 group">
                                 <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-red rounded-2xl flex items-center justify-center shadow-lg shadow-brand-red/30 group-hover:scale-105 transition-transform">
                                     <i class="fa-solid fa-plane text-white text-xl md:text-2xl"></i>
@@ -573,7 +573,7 @@
                                     <i class="fa-solid fa-moon dark:hidden"></i>
                                     <i class="fa-solid fa-sun hidden dark:inline"></i>
                                 </button>
-                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-red-700 transition-all">
+                                <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-[#be123c] transition-all">
                                     <i class="fa-solid fa-bars text-lg"></i>
                                 </button>
                                 <a href="login.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 border-2 border-brand-red text-brand-red text-sm font-bold rounded-xl hover:bg-brand-red hover:text-white transition-all duration-300">
@@ -810,7 +810,7 @@
                                 </div>
                             </div>
                             <div class="border-t border-zinc-200 dark:border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-                                <p>&copy; 2025 TravelSpark. All rights reserved.</p>
+                                <p>&copy; 2025 IgniteTravel. All rights reserved.</p>
                                 <div class="flex gap-6">
                                     <a href="#" class="hover:text-brand-red transition-colors">Privacy</a>
                                     <a href="#" class="hover:text-brand-red transition-colors">Terms</a>

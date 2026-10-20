@@ -21,7 +21,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            red: '#dc2626',
+                            red: '#e11d48', /* Updated to Rose Red */
                             black: '#0a0a0a',
                             dark: '#111111'
                         }
@@ -103,7 +103,7 @@
             left: 0; top: 50%;
             transform: translateY(-50%);
             width: 3px; height: 0;
-            background-color: #dc2626;
+            background-color: #e11d48;
             border-radius: 0 3px 3px 0;
             transition: height 0.25s ease;
         }
@@ -113,9 +113,9 @@
             border-radius: 3px 0 0 3px;
         }
         .nav-link.active-pill {
-            background-color: #dc2626;
+            background-color: #e11d48;
             color: #ffffff;
-            box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.35);
+            box-shadow: 0 10px 20px -5px rgba(225, 29, 72, 0.35);
         }
         .nav-link.active-pill i { color: #ffffff !important; }
         .nav-link.active-pill .nav-badge {
@@ -135,15 +135,15 @@
 
         /* Timeline track */
         .route-track {
-            background: repeating-linear-gradient(to right, #dc2626 0, #dc2626 4px, transparent 4px, transparent 12px);
+            background: repeating-linear-gradient(to right, #e11d48 0, #e11d48 4px, transparent 4px, transparent 12px);
         }
         html[dir="rtl"] .route-track {
-            background: repeating-linear-gradient(to left, #dc2626 0, #dc2626 4px, transparent 4px, transparent 12px);
+            background: repeating-linear-gradient(to left, #e11d48 0, #e11d48 4px, transparent 4px, transparent 12px);
         }
 
         /* Dashed vertical for docs */
         .dashed-line {
-            background-image: linear-gradient(to bottom, #dc2626 50%, transparent 50%);
+            background-image: linear-gradient(to bottom, #e11d48 50%, transparent 50%);
             background-size: 2px 10px;
         }
 
@@ -484,7 +484,7 @@
                             <h2 class="text-xl sm:text-2xl font-black tracking-tight text-black dark:text-white">Bookings</h2>
                             <p class="text-sm text-zinc-500 font-medium mt-1">Every journey, past and future.</p>
                         </div>
-                        <button class="px-4 py-2 bg-brand-red text-white rounded-xl text-xs font-bold shadow-sm hover:bg-red-700 transition-colors"><i class="fas fa-plus mr-2"></i>New Booking</button>
+                        <button class="px-4 py-2 bg-brand-red text-white rounded-xl text-xs font-bold shadow-sm hover:bg-[#be123c] transition-colors"><i class="fas fa-plus mr-2"></i>New Booking</button>
                     </div>
 
                     <div class="bg-white dark:bg-brand-black rounded-3xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
@@ -550,7 +550,7 @@
                             </div>
                             <div class="flex gap-2">
                                 <button class="px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 text-black dark:text-white rounded-xl text-xs font-bold hover:border-brand-red hover:text-brand-red transition-colors">Manage</button>
-                                <button class="px-4 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-colors">View Itinerary</button>
+                                <button class="px-4 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-[#be123c] transition-colors">View Itinerary</button>
                             </div>
                         </div>
                     </div>
@@ -596,7 +596,7 @@
                             <h2 class="text-xl sm:text-2xl font-black text-black dark:text-white">Documents</h2>
                             <p class="text-sm text-zinc-500 font-medium mt-1">Your secure document library.</p>
                         </div>
-                        <button class="px-5 py-2.5 text-xs font-black uppercase tracking-widest bg-brand-red text-white rounded-xl shadow-sm hover:bg-red-700 transition-colors">
+                        <button class="px-5 py-2.5 text-xs font-black uppercase tracking-widest bg-brand-red text-white rounded-xl shadow-sm hover:bg-[#be123c] transition-colors">
                             <i class="fas fa-download mr-2"></i> Download All
                         </button>
                     </div>
@@ -676,7 +676,7 @@
                             <p class="text-sm text-zinc-500 font-medium mt-1">Destinations you're dreaming about.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button class="px-4 py-2 bg-brand-red text-white rounded-xl text-xs font-bold shadow-sm hover:bg-red-700 transition-colors"><i class="fas fa-sliders mr-2"></i>Filter</button>
+                            <button class="px-4 py-2 bg-brand-red text-white rounded-xl text-xs font-bold shadow-sm hover:bg-[#be123c] transition-colors"><i class="fas fa-sliders mr-2"></i>Filter</button>
                             <button class="px-4 py-2 bg-white dark:bg-brand-black border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 rounded-xl text-xs font-bold hover:border-brand-red transition-colors"><i class="fas fa-arrow-down-wide-short mr-2"></i>Sort</button>
                         </div>
                     </div>
@@ -725,8 +725,8 @@
                                         <p class="editorial text-3xl text-brand-red">$2,100</p>
                                     </div>
                                     <div class="flex gap-2 mt-4">
-                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-colors">Book</button>
-                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
+                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-[#be123c] transition-colors">Book</button>
+                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-brand-red hover:text-brand-red transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -760,8 +760,8 @@
                                         <p class="editorial text-3xl text-brand-red">$1,850</p>
                                     </div>
                                     <div class="flex gap-2 mt-4">
-                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-colors">Book</button>
-                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
+                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-[#be123c] transition-colors">Book</button>
+                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-brand-red hover:text-brand-red transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -795,8 +795,8 @@
                                         <p class="editorial text-3xl text-brand-red">$3,200</p>
                                     </div>
                                     <div class="flex gap-2 mt-4">
-                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-colors">Book</button>
-                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
+                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-[#be123c] transition-colors">Book</button>
+                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-brand-red hover:text-brand-red transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -830,8 +830,8 @@
                                         <p class="editorial text-3xl text-brand-red">$1,790</p>
                                     </div>
                                     <div class="flex gap-2 mt-4">
-                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-colors">Book</button>
-                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
+                                        <button class="flex-1 py-2.5 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-[#be123c] transition-colors">Book</button>
+                                        <button class="w-10 h-10 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 text-zinc-500 rounded-xl hover:border-brand-red hover:text-brand-red transition-colors"><i class="fas fa-trash-can text-xs"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -937,7 +937,7 @@
 
                             <div class="flex flex-col sm:flex-row justify-end gap-3">
                                 <button class="px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-black dark:text-white font-bold text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all">Cancel</button>
-                                <button class="px-6 py-3 rounded-xl bg-brand-red text-white font-bold text-sm hover:bg-red-700 transition-all">Save Changes</button>
+                                <button class="px-6 py-3 rounded-xl bg-brand-red text-white font-bold text-sm hover:bg-[#be123c] transition-all">Save Changes</button>
                             </div>
                         </div>
                     </div>

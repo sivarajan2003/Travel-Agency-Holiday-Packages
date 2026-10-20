@@ -29,7 +29,7 @@
           },
           colors: {
             brand: {
-              red: '#dc2626',
+              red: '#e11d48', /* Updated to Rose Red */
               black: '#0a0a0a',
               dark: '#111111'
             }
@@ -76,16 +76,16 @@
       position: relative;
     }
     .toggle-btn:hover {
-      border-color: #dc2626;
-      color: #dc2626;
+      border-color: #e11d48;
+      color: #e11d48;
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.2);
     }
     .toggle-btn:active {
       transform: translateY(0) scale(0.95);
     }
     .dark .toggle-btn:hover {
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
     }
 
     /* Icon rotation on theme toggle */
@@ -158,9 +158,9 @@
       color: #ffffff;
     }
     .input-group input:focus {
-      border-color: #dc2626;
+      border-color: #e11d48;
       background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1);
     }
     .dark .input-group input:focus {
       background: #0a0a0a;
@@ -181,7 +181,7 @@
       top: 0.5rem;
       transform: translateY(0);
       font-size: 0.6rem;
-      color: #dc2626;
+      color: #e11d48;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -194,7 +194,7 @@
       left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #dc2626;
+      color: #e11d48;
       font-size: 0.9rem;
       pointer-events: none;
       transition: all 0.2s ease;
@@ -209,11 +209,11 @@
 
     /* ═══════════ DOTTED BACKGROUND PATTERN ═══════════ */
     .dot-pattern {
-      background-image: radial-gradient(circle, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(225, 29, 72, 0.08) 1px, transparent 1px);
       background-size: 22px 22px;
     }
     .dark .dot-pattern {
-      background-image: radial-gradient(circle, rgba(220, 38, 38, 0.12) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(225, 29, 72, 0.12) 1px, transparent 1px);
     }
 
     /* ═══════════ HIDDEN SCROLLBAR ═══════════ */
@@ -263,7 +263,7 @@
   <div class="fixed bottom-[-15%] right-[-10%] w-[500px] h-[500px] bg-brand-red/10 dark:bg-brand-red/5 rounded-full blur-[120px] pointer-events-none"></div>
 
   <!-- ============================================================ -->
-  <!-- 🔴 FIXED TOP RIGHT TOGGLE BUTTONS (NOW ADDED) -->
+  <!-- 🔴 FIXED TOP RIGHT TOGGLE BUTTONS -->
   <!-- ============================================================ -->
   <div class="fixed top-4 right-4 sm:top-5 sm:right-5 md:top-6 md:right-6 z-[9999] flex items-center gap-2">
     <!-- RTL Toggle -->
@@ -344,7 +344,7 @@
               <input type="checkbox" class="w-3.5 h-3.5 rounded border-zinc-300 dark:border-zinc-600 accent-brand-red cursor-pointer">
               <span class="text-[11px] text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors font-semibold">Remember me</span>
             </label>
-            <a href="#" class="text-[11px] text-brand-red font-bold hover:text-red-700 transition-colors">Forgot password?</a>
+            <a href="#" class="text-[11px] text-brand-red font-bold hover:text-[#be123c] transition-colors">Forgot password?</a>
           </div>
 
           <!-- Submit -->
@@ -374,7 +374,7 @@
         <!-- Signup Link -->
         <p class="text-center mt-5 sm:mt-6 text-xs text-zinc-500 dark:text-zinc-400 font-medium">
           Don't have an account?
-          <a href="signup.html" class="text-brand-red font-bold hover:text-red-700 transition-colors ml-1">Create one →</a>
+          <a href="signup.html" class="text-brand-red font-bold hover:text-[#be123c] transition-colors ml-1">Create one →</a>
         </p>
       </div>
 
@@ -496,7 +496,7 @@
         }
       });
 
-      console.log('%c🔐 IgniteTravel · Login', 'font-size:18px;font-weight:bold;color:#dc2626;');
+      console.log('%c🔐 IgniteTravel · Login', 'font-size:18px;font-weight:bold;color:#e11d48;');
       console.log('%c💡 Press "D" to toggle Dark Mode · Press "R" to toggle RTL', 'font-size:11px;color:#6b7280;');
     });
   </script>

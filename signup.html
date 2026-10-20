@@ -29,7 +29,7 @@
           },
           colors: {
             brand: {
-              red: '#dc2626',
+              red: '#e11d48', /* Updated to Rose Red */
               black: '#0a0a0a',
               dark: '#111111'
             }
@@ -76,16 +76,16 @@
       position: relative;
     }
     .toggle-btn:hover {
-      border-color: #dc2626 !important;
-      color: #dc2626 !important;
+      border-color: #e11d48 !important;
+      color: #e11d48 !important;
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.25) !important;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.25) !important;
     }
     .toggle-btn:active {
       transform: translateY(0) scale(0.95);
     }
     .dark .toggle-btn:hover {
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35) !important;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.35) !important;
     }
 
     /* Icon rotation on theme toggle */
@@ -158,9 +158,9 @@
       color: #ffffff;
     }
     .input-group input:focus {
-      border-color: #dc2626;
+      border-color: #e11d48;
       background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1);
     }
     .dark .input-group input:focus {
       background: #0a0a0a;
@@ -181,7 +181,7 @@
       top: 0.45rem;
       transform: translateY(0);
       font-size: 0.6rem;
-      color: #dc2626;
+      color: #e11d48;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -194,7 +194,7 @@
       left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #dc2626;
+      color: #e11d48;
       font-size: 0.9rem;
       pointer-events: none;
       transition: all 0.2s ease;
@@ -210,11 +210,11 @@
 
     /* ═══════════ DOTTED BACKGROUND PATTERN ═══════════ */
     .dot-pattern {
-      background-image: radial-gradient(circle, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(225, 29, 72, 0.08) 1px, transparent 1px);
       background-size: 22px 22px;
     }
     .dark .dot-pattern {
-      background-image: radial-gradient(circle, rgba(220, 38, 38, 0.12) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(225, 29, 72, 0.12) 1px, transparent 1px);
     }
 
     /* ═══════════ PASSWORD STRENGTH BAR ═══════════ */
@@ -421,7 +421,7 @@
         <!-- Login Link -->
         <p class="text-center mt-5 text-xs text-zinc-500 dark:text-zinc-400 font-medium">
           Already have an account?
-          <a href="login.html" class="text-brand-red font-bold hover:text-red-700 transition-colors ml-1">Log In</a>
+          <a href="login.html" class="text-brand-red font-bold hover:text-[#be123c] transition-colors ml-1">Log In</a>
         </p>
       </div>
 
@@ -430,7 +430,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 🔴 FIXED: html was undefined in the original code
       const html = document.documentElement;
       const darkToggle = document.getElementById('darkToggle');
       const darkIcon = document.getElementById('darkIcon');
@@ -600,7 +599,7 @@
         }
       });
 
-      console.log('%c🔐 IgniteTravel · Sign Up', 'font-size:18px;font-weight:bold;color:#dc2626;');
+      console.log('%c🔐 IgniteTravel · Sign Up', 'font-size:18px;font-weight:bold;color:#e11d48;');
       console.log('%c💡 Press "D" to toggle Dark Mode · Press "R" to toggle RTL', 'font-size:11px;color:#6b7280;');
     });
   </script>
