@@ -254,7 +254,7 @@
         <!-- ============================================================ -->
         <!-- 2. HERO SECTION (Background & Text Kept Same, New Style) -->
         <!-- ============================================================ -->
-        <section class="relative w-full min-h-[650px] md:min-h-screen py-16 sm:py-20 lg:py-24 flex items-center justify-center bg-brand-black overflow-hidden">
+        <section class="relative w-full min-h-[580px] sm:min-h-[620px] md:min-h-[75vh] md:max-h-[850px] py-16 sm:py-20 lg:py-24 flex items-center justify-center bg-brand-black overflow-hidden">
             <div class="absolute inset-0 w-full h-full">
                 <img src="assets/ho1.avif" alt="Luxury Travel" class="w-full h-full object-cover opacity-40">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90"></div>
@@ -280,10 +280,10 @@
 
                 <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-full shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                    <a href="packages.html" class="px-8 py-4 bg-brand-red hover:bg-[#be123c] text-white font-bold rounded-xl shadow-lg shadow-brand-red/30 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-compass"></i> Find Packages
                     </a>
-                    <a href="destinations.html" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold rounded-full transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base">
+                    <a href="destinations.html" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-map"></i> Browse Destinations
                     </a>
                 </div>
@@ -760,12 +760,10 @@
                                 <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-lg shadow-brand-red/30 hover:bg-[#be123c] transition-all">
                                     <i class="fa-solid fa-bars text-lg"></i>
                                 </button>
-                                <!-- Login / Sign Up (desktop) -->
-                                <a href="login.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 border-2 border-brand-red text-brand-red text-sm font-bold rounded-xl hover:bg-brand-red hover:text-white transition-all duration-300">
-                                    <i class="fa-solid fa-user"></i> Login
-                                </a>
-                                <a href="signup.html" class="hidden xl:flex items-center gap-1.5 px-4 py-2 bg-brand-black text-white text-sm font-bold rounded-xl hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20">
-                                    Sign Up
+                                <!-- Authentication CTA (Desktop) -->
+                                <a href="signup.html" class="hidden xl:inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-red text-white text-sm font-bold rounded-xl hover:bg-[#be123c] transition-all duration-300 shadow-md shadow-brand-red/25 hover:shadow-lg hover:shadow-brand-red/35 active:scale-95">
+                                    <i class="fa-solid fa-user-plus text-xs"></i>
+                                    <span>Sign Up</span>
                                 </a>
                             </div>
                         </div>
@@ -815,9 +813,15 @@
                                     </button>
                                 </div>
                             </div>
-<div class="flex flex-col gap-4 mt-4">
-                                <a href="login.html" class="w-full py-3 border-2 border-brand-red text-brand-red text-center font-bold rounded-xl hover:bg-brand-red hover:text-white transition-colors">Login</a>
-                                <a href="signup.html" class="w-full py-3 bg-brand-black text-white text-center font-bold rounded-xl hover:bg-zinc-800 transition-colors">Sign Up</a>
+                            <div class="flex flex-col gap-3 mt-4">
+                                <a href="signup.html" class="w-full py-3.5 bg-brand-red text-white text-center font-bold rounded-xl hover:bg-[#be123c] transition-colors shadow-md shadow-brand-red/25 flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-user-plus text-xs"></i>
+                                    <span>Sign Up</span>
+                                </a>
+                                <p class="text-center text-xs text-zinc-500 dark:text-zinc-400 font-medium">
+                                    Already have an account?
+                                    <a href="login.html" class="text-brand-red font-bold hover:underline ml-1">Log In</a>
+                                </p>
                             </div>
                         </div>
                     </div>
